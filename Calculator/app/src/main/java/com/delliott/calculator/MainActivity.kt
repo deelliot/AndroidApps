@@ -72,7 +72,16 @@ class MainActivity : AppCompatActivity() {
         binding.buttonMultiply.setOnClickListener(opListener)
         binding.buttonMinus.setOnClickListener(opListener)
         binding.buttonPlus.setOnClickListener(opListener)
+
+        val clear = View.OnClickListener{
+            operand1 = null
+            binding.newNumber.setText("")
+            binding.result.setText("")
+            pendingOperation = ""
+        }
+        binding.buttonClear.setOnClickListener(clear)
     }
+
 
     private fun performOperation(value: Double, operation: String) {
 
