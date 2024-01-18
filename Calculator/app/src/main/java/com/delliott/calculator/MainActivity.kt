@@ -39,6 +39,22 @@ class MainActivity : AppCompatActivity() {
         binding.button9.setOnClickListener(listener)
         binding.buttonDot.setOnClickListener(listener)
 
+        val negListener = View.OnClickListener { _ ->
+            val newNumberText = binding.newNumber.text.toString()
+            if (newNumberText.isEmpty()) {
+                binding.newNumber.setText("-")
+            } else {
+                try {
+                    val value = newNumberText.toDouble() * -1
+                    binding.newNumber.setText(value.toString())
+                } catch (e: NumberFormatException) {
+                    //new number was "-" or ".", so need to clear it
+                    binding.newNumber.setText("")
+                }
+            }
+        }
+        binding.buttonNegative.setOnClickListener(negListener)
+
         val opListener = View.OnClickListener { v ->
             val op = (v as Button).text.toString()
             try {
@@ -47,7 +63,6 @@ class MainActivity : AppCompatActivity() {
             } catch (e: NumberFormatException) {
                 binding.newNumber.setText("")
             }
-
             pendingOperation = op
             binding.operation.text = pendingOperation
         }
