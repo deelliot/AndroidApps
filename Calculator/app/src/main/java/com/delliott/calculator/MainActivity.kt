@@ -6,7 +6,6 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.delliott.calculator.databinding.ActivityMainBinding
 
-private lateinit var binding: ActivityMainBinding
 private const val STATE_PENDING_OP = "PendingOperation"
 private const val STATE_OPERAND1 = "operand1"
 private const val STATE_OPERAND_STORED = "operandStored"
@@ -14,6 +13,7 @@ private const val STATE_OPERAND_STORED = "operandStored"
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityMainBinding
     private var operand1: Double? = null
     private var pendingOperation = "="
 
