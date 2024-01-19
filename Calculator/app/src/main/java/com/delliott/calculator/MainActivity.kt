@@ -17,13 +17,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
 
         val viewModel: CalculatorViewModel by viewModels()
-        viewModel.result.observe(this) { stringResult ->
+        viewModel.stringResult.observe(this) { stringResult ->
             binding.result.setText(stringResult)
         }
-        viewModel.newNumber.observe(this) { stringNumber ->
+        viewModel.stringNewNumber.observe(this) { stringNumber ->
             binding.newNumber.setText(stringNumber)
         }
-        viewModel.operation.observe(this) { stringOperation ->
+        viewModel.stringOperation.observe(this) { stringOperation ->
             binding.operation.text = stringOperation
         }
 
