@@ -1,26 +1,44 @@
 package com.delliott.top10downloader.ui
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.delliott.top10downloader.data.Product
 import com.delliott.top10downloader.data.ProductRepository
-import com.delliott.top10downloader.data.ProductsAPI
-import com.delliott.top10downloader.data.RetrofitHelper
 import kotlinx.coroutines.launch
 
 class ProductViewModel : ViewModel() {
-
-    private val productsApi = RetrofitHelper.getInstance().create(ProductsAPI::class.java)
     private val _products = MutableLiveData<List<Product>>()
     private val productRepository = ProductRepository()
+    private val _title = MutableLiveData<String>()
     val products: LiveData<List<Product>>
-        get() = _products
-    fun loadProducts() {
+        get() = _products //whatever is in _products is copied here
+    val title: LiveData<String>
+        get() = _title
+
+    fun loadProducts(limit: Int = -1) {
         viewModelScope.launch {
-            val products = productRepository.getAllProducts()
+            val products = productRepository.getProducts(limit)
             _products.value = products
         }
     }
+
+    fun allProductsSelected() {
+        Log.d("test", "all products selected")
+        loadProducts()
+        _title.value = "All Products"
+    }
+
+    fun top3Selected() {
+        loadProducts(3)
+        _title.value = "Top 3 Products"
+    }
+
+    fun top25Selected() {
+        loadProducts(25)
+        _title.value = "Top 25 Products"
+    }
 }
+

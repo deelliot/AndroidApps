@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private val viewModel: ProductViewModel by viewModels()
-    private val productAdapter =  ProductsAdapter()
+    private val productAdapter = ProductsAdapter()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel.loadProducts()
@@ -28,5 +28,23 @@ class MainActivity : AppCompatActivity() {
             productAdapter.setProducts(it)
         }
 
+        viewModel.title.observe(this) {
+            binding.header.text = viewModel.title.value
+        }
+
+        val allProducts = View.OnClickListener {
+            viewModel.allProductsSelected()
+        }
+        binding.buttonAll.setOnClickListener(allProducts)
+
+        val top3 = View.OnClickListener {
+            viewModel.top3Selected()
+        }
+        binding.buttonTop3.setOnClickListener(top3)
+
+        val top25 = View.OnClickListener {
+            viewModel.top25Selected()
+        }
+        binding.buttonTop25.setOnClickListener(top25)
     }
 }
