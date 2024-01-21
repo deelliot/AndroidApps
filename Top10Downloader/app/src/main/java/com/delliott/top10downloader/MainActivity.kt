@@ -1,7 +1,6 @@
 package com.delliott.top10downloader
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -26,7 +25,6 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerView.adapter = productAdapter
 
         viewModel.products.observe(this) {
-            Log.d("TEST", "product list $it")
             productAdapter.setProducts(it)
         }
 

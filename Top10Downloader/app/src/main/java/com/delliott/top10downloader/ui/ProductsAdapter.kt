@@ -1,6 +1,5 @@
 package com.delliott.top10downloader.ui
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,16 +20,13 @@ class ProductImageViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
 class ProductsAdapter() :
     RecyclerView.Adapter<ProductImageViewHolder>() {
-    private val TAG = "productAdapter"
     private var productsList: List<Product> = emptyList()
 
     override fun getItemCount(): Int {
-        Log.d(TAG, "getItemCount called")
         return productsList.size
     }
 
     fun setProducts(newProducts: List<Product>) {
-        Log.d(TAG, "hello")
         productsList = newProducts
         notifyDataSetChanged()
     }
@@ -38,7 +34,6 @@ class ProductsAdapter() :
     override fun onBindViewHolder(holder: ProductImageViewHolder, position: Int) {
         //called by layout manager when it wants new data in an existing vew
         val productItem = productsList[position]
-        Log.d(TAG, "onBindingViewHolder: ${productItem.name} --> $position")
 
         Picasso.get().load(productItem.thumbnail)
             .error(R.drawable.placeholder)
@@ -53,7 +48,6 @@ class ProductsAdapter() :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductImageViewHolder {
         //called by layout manager when it needs a new view
-        Log.d(TAG, "onCreate ViewHolder new view requested")
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_product, parent, false)
         return ProductImageViewHolder(view)
     }
