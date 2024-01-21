@@ -1,6 +1,5 @@
 package com.delliott.top10downloader.ui
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -26,7 +25,6 @@ class ProductViewModel : ViewModel() {
     }
 
     fun allProductsSelected() {
-        Log.d("test", "all products selected")
         loadProducts()
         _title.value = "All Products"
     }
