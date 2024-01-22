@@ -32,7 +32,7 @@ class ProductsAdapter() :
     }
 
     override fun onBindViewHolder(holder: ProductImageViewHolder, position: Int) {
-        //called by layout manager when it wants new data in an existing vew
+        //called by layout manager when it wants new data in an existing view
         val productItem = productsList[position]
 
         Picasso.get().load(productItem.thumbnail)
