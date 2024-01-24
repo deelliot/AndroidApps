@@ -32,6 +32,9 @@ class MainActivity : AppCompatActivity() {
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
+
+        TestObject.test()
+        TestObject.state
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -54,5 +57,16 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration)
                 || super.onSupportNavigateUp()
+    }
+}
+
+class TestClass {
+    fun test() {}
+}
+
+object TestObject {
+    var state = 0
+    fun test() {
+        state += 1
     }
 }
