@@ -1,18 +1,28 @@
 package com.delliott.flickrbrowser.data
 
 import com.squareup.moshi.Moshi
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 
 private const val FLICKR_API_KEY = "0d71891f987940a270694539b94f5423"
 
 object ApiServiceProvider {
-    private const val baseUrl = "https://api.flickr.com/services/rest/"
+    private const val baseUrl = "https://api.flickr.com/services/"
 
     val client: ApiService by lazy {
+        val interceptor = HttpLoggingInterceptor()
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+        val client: OkHttpClient = OkHttpClient.Builder()
+            .addInterceptor(interceptor)
+            .build()
+
         Retrofit.Builder().baseUrl(baseUrl)
+            .client(client)
             .addConverterFactory(
                 MoshiConverterFactory.create(
                     Moshi.Builder().build()
@@ -23,6 +33,12 @@ object ApiServiceProvider {
 }
 
 interface ApiService {
-    @GET("?method=flickr.photos.search&format=json&nojsoncallback=1&text=dogs&api_key=$FLICKR_API_KEY")
-    suspend fun fetchImages(): PhotosSearchResponse
+    @GET("rest")
+    suspend fun fetchImages(
+        @Query(value = "nojsoncallback") nojsoncallback: String = "1",
+        @Query(value = "format") format: String = "json",
+        @Query(value = "method") method: String = "flickr.photos.search",
+        @Query(value = "api_key") apiKey: String = FLICKR_API_KEY,
+        @Query(value = "text") searchTerm: String
+    ): PhotosSearchResponse
 }

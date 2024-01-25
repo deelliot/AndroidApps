@@ -9,10 +9,18 @@ import com.delliott.flickrbrowser.R
 import com.delliott.flickrbrowser.domain.PhotoModel
 import com.squareup.picasso.Picasso
 
+
+const val IMAGE_SIZE = 400
 class PhotosViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private var image: ImageView = view.findViewById(R.id.imageView)
     fun bind(photo: PhotoModel) {
-        Picasso.get().load(photo.url).into(image)
+        Picasso.get()
+            .load(photo.url)
+            .error(R.drawable.placeholder)
+            .placeholder(R.drawable.placeholder)
+            .resize(IMAGE_SIZE, IMAGE_SIZE)
+            .centerCrop()
+            .into(image)
     }
 }
 class PhotoAdapter() : RecyclerView.Adapter<PhotosViewHolder>() {

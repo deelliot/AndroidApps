@@ -62,6 +62,8 @@ dependencies {
     //dependency for retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-moshi:2.4.0")
+    // dependency to log Retrofit requests
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
     //dependency for picasso for image loading
     implementation("com.squareup.picasso:picasso:2.8")
 }
