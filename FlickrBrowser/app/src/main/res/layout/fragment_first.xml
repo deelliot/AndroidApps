@@ -20,11 +20,12 @@
         android:id="@+id/searchBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:queryHint="search"
         android:layout_marginBottom="4dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:hint="search"
+        app:layout_constraintBottom_toTopOf="@id/recyclerView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/recyclerView"/>
+        tools:text="@android:string/search_go" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
