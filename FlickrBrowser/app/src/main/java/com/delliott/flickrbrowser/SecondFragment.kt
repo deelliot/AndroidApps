@@ -34,8 +34,8 @@ class SecondFragment : Fragment() {
             .error(R.drawable.placeholder)
             .into(binding.imageDetailed)
 
-        binding.title.text = args.photoTitle
-        binding.author.text = args.photoAuthor
+        binding.title.text = "Title: " + args.photoTitle
+        binding.author.text = "Artist: " + args.photoAuthor
     }
 
     override fun onDestroyView() {
