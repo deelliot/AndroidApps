@@ -46,6 +46,5 @@ Make sure to check the `build.gradle` files for the latest versions of these dep
 ## Acknowledgments
 
 - Special thanks to the [Flickr API](https://www.flickr.com/services/api/) for providing access to a vast collection of photos.
-- The development team acknowledges the open-source community and the contributors of the libraries used in this project.
 
 Happy browsing! 📷
