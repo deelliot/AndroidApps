@@ -11,6 +11,7 @@ import com.squareup.picasso.Picasso
 
 
 const val IMAGE_SIZE = 400
+
 class PhotosViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private var image: ImageView = view.findViewById(R.id.imageView)
     fun bind(photo: PhotoModel) {
@@ -23,11 +24,14 @@ class PhotosViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             .into(image)
     }
 }
+
 class PhotoAdapter() : RecyclerView.Adapter<PhotosViewHolder>() {
     private var photosList: List<PhotoModel> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotosViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_photo, parent, false)
+        val view = LayoutInflater
+            .from(parent.context)
+            .inflate(R.layout.item_photo, parent, false)
         return PhotosViewHolder(view)
     }
 

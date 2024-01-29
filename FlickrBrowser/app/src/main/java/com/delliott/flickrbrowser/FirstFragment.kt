@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.delliott.flickrbrowser.databinding.FragmentFirstBinding
 import com.delliott.flickrbrowser.ui.PhotoAdapter
@@ -22,6 +22,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 private const val SEARCH_DELAY = 200L
+
 class FirstFragment : Fragment(), RecyclerItemClickListener.OnRecyclerClickListener {
 
     private var _binding: FragmentFirstBinding? = null
@@ -32,7 +33,7 @@ class FirstFragment : Fragment(), RecyclerItemClickListener.OnRecyclerClickListe
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
 
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
@@ -40,18 +41,36 @@ class FirstFragment : Fragment(), RecyclerItemClickListener.OnRecyclerClickListe
         binding.recyclerView.layoutManager = GridLayoutManager(context, 2)
 
         val context = requireContext()
-        binding.recyclerView.addOnItemTouchListener(RecyclerItemClickListener(context, binding.recyclerView, this))
+        binding.recyclerView.addOnItemTouchListener(
+            RecyclerItemClickListener(
+                context,
+                binding.recyclerView,
+                this
+            )
+        )
 
-        binding.searchBar.addTextChangedListener{
+        binding.searchBar.addTextChangedListener {
             searchJob?.cancel()
             searchJob = lifecycleScope.launch {
                 delay(SEARCH_DELAY)
-               photosViewModel.fetchImages(it.toString())
+                photosViewModel.fetchImages(it.toString())
             }
         }
 
         photosViewModel.photos.observe(viewLifecycleOwner, Observer {
             photoAdapter.setPhotos(it)
+        })
+
+        photosViewModel.selectedPhoto.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                photosViewModel.clearSelectedPhoto()
+                val action = FirstFragmentDirections.actionFirstFragmentToSecondFragment(
+                    it.url,
+                    it.title,
+                    it.ownerName
+                )
+                findNavController().navigate(action)
+            }
         })
 
         return binding.root
@@ -62,8 +81,8 @@ class FirstFragment : Fragment(), RecyclerItemClickListener.OnRecyclerClickListe
         //Toast.makeText(context, "Normal tap at position $position", Toast.LENGTH_SHORT).show()
         val photo = photoAdapter.getPhoto(position)
         if (photo != null) {
-            val action = FirstFragmentDirections.actionFirstFragmentToSecondFragment(photo.url, photo.title, photo.owner)
-            view.findNavController().navigate(action)
+            photosViewModel.selectPhoto(photo)
+
         }
     }
 

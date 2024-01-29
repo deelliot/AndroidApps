@@ -39,7 +39,17 @@ interface ApiService {
         @Query(value = "format") format: String = "json",
         @Query(value = "method") method: String = "flickr.photos.search",
         @Query(value = "api_key") apiKey: String = FLICKR_API_KEY,
-        @Query(value = "text") searchTerm: String
+        //@Query(value = "per_page") limit: Int = 5,
+        @Query(value = "text") searchTerm: String,
     ): PhotosSearchResponse
+
+    @GET("rest")
+    suspend fun fetchOwner(
+        @Query(value = "nojsoncallback") nojsoncallback: String = "1",
+        @Query(value = "format") format: String = "json",
+        @Query(value = "method") method: String = "flickr.people.getInfo",
+        @Query(value = "api_key") apiKey: String = FLICKR_API_KEY,
+        @Query(value = "user_id") userId: String,
+    ): OwnerSearchResponse
 
 }
