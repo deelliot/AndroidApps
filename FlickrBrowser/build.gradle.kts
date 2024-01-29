@@ -4,4 +4,6 @@ plugins {
     id("org.jetbrains.kotlin.android") version "1.9.22" apply false
     // added for ksp
     id("com.google.devtools.ksp") version "1.9.22-1.0.17" apply false
+    //safe args for navigating between fragments
+    id("androidx.navigation.safeargs") version "2.7.6" apply false
 }

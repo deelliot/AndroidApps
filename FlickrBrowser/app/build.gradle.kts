@@ -3,6 +3,8 @@ plugins {
     id("org.jetbrains.kotlin.android")
     // added for ksp
     id("com.google.devtools.ksp")
+    //safe args for navigating between fragments
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {

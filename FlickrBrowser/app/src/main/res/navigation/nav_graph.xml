@@ -24,5 +24,14 @@
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
+        <argument
+            android:name="photoUrl"
+            app:argType="string" />
+        <argument
+            android:name="photoTitle"
+            app:argType="string" />
+        <argument
+            android:name="photoAuthor"
+            app:argType="string" />
     </fragment>
 </navigation>

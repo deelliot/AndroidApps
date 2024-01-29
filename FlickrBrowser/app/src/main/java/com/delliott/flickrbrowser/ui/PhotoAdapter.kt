@@ -42,4 +42,8 @@ class PhotoAdapter() : RecyclerView.Adapter<PhotosViewHolder>() {
         notifyDataSetChanged()
 
     }
+
+    fun getPhoto(position: Int): PhotoModel? {
+        return if (photosList.isNotEmpty()) photosList[position] else null
+    }
 }

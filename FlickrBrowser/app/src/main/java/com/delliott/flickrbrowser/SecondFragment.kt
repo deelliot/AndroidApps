@@ -1,22 +1,20 @@
 package com.delliott.flickrbrowser
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.delliott.flickrbrowser.databinding.FragmentSecondBinding
+import com.squareup.picasso.Picasso
 
-/**
- * A simple [Fragment] subclass as the second destination in the navigation.
- */
 class SecondFragment : Fragment() {
 
-    private var _binding: FragmentSecondBinding? = null
+    private val args: SecondFragmentArgs by navArgs()
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+    private var _binding: FragmentSecondBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -26,11 +24,19 @@ class SecondFragment : Fragment() {
 
         _binding = FragmentSecondBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val photoUrl = args.photoUrl
+        Picasso.get()
+            .load(photoUrl)
+            .error(R.drawable.placeholder)
+            .into(binding.imageDetailed)
+
+        binding.title.text = args.photoTitle
+        binding.author.text = args.photoAuthor
 
         binding.buttonSecond.setOnClickListener {
             findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)

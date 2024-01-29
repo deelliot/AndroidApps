@@ -10,6 +10,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.delliott.flickrbrowser.databinding.FragmentFirstBinding
 import com.delliott.flickrbrowser.ui.PhotoAdapter
@@ -53,7 +54,12 @@ class FirstFragment : Fragment(), RecyclerItemClickListener.OnRecyclerClickListe
 
     override fun onItemClick(view: View, position: Int) {
         Log.d("test", "onItemClick: start")
-        Toast.makeText(context, "Normal tap at position $position", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(context, "Normal tap at position $position", Toast.LENGTH_SHORT).show()
+        val photo = photoAdapter.getPhoto(position)
+        if (photo != null) {
+            val action = FirstFragmentDirections.actionFirstFragmentToSecondFragment(photo.url, photo.title, photo.id)
+            view.findNavController().navigate(action)
+        }
     }
 
     override fun onItemLongClick(view: View, position: Int) {
