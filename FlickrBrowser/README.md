@@ -25,7 +25,7 @@ To build and run the app locally, follow these steps:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/flickr-photo-browser.git
+   git clone https://github.com/deelliot/AndroidApps/tree/407e4c931352fcfbbc7002babb6665d17d55ac92/FlickrBrowser
    ```
 
 2. Open the project in Android Studio.
