@@ -1,5 +1,3 @@
-Certainly! Here's an updated introduction to the README file:
-
 # Flickr Photo Browser App
 
 ## Overview
