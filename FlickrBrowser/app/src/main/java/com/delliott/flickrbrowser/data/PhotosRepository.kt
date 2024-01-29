@@ -9,8 +9,9 @@ class PhotosRepository {
                 searchTerm = searchTerm
             )
             val photosList: List<PhotoModel> = searchResponse.photos.photo.map { photo ->
+
                 PhotoModel(
-                    id = photo.id,
+                    owner = photo.owner,
                     url = "https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg",
                     title = photo.title
                 )

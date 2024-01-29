@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.delliott.flickrbrowser.databinding.FragmentSecondBinding
 import com.squareup.picasso.Picasso
@@ -37,10 +36,6 @@ class SecondFragment : Fragment() {
 
         binding.title.text = args.photoTitle
         binding.author.text = args.photoAuthor
-
-        binding.buttonSecond.setOnClickListener {
-            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
-        }
     }
 
     override fun onDestroyView() {

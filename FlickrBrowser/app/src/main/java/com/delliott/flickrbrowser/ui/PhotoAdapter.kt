@@ -24,7 +24,7 @@ class PhotosViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     }
 }
 class PhotoAdapter() : RecyclerView.Adapter<PhotosViewHolder>() {
-    var photosList: List<PhotoModel> = emptyList()
+    private var photosList: List<PhotoModel> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotosViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_photo, parent, false)

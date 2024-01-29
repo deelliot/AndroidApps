@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -45,10 +46,14 @@ class FirstFragment : Fragment(), RecyclerItemClickListener.OnRecyclerClickListe
             searchJob?.cancel()
             searchJob = lifecycleScope.launch {
                 delay(SEARCH_DELAY)
-                val imagesList = photosViewModel.fetchImages(it.toString())
-                photoAdapter.setPhotos(imagesList)
+               photosViewModel.fetchImages(it.toString())
             }
         }
+
+        photosViewModel.photos.observe(viewLifecycleOwner, Observer {
+            photoAdapter.setPhotos(it)
+        })
+
         return binding.root
     }
 
@@ -57,7 +62,7 @@ class FirstFragment : Fragment(), RecyclerItemClickListener.OnRecyclerClickListe
         //Toast.makeText(context, "Normal tap at position $position", Toast.LENGTH_SHORT).show()
         val photo = photoAdapter.getPhoto(position)
         if (photo != null) {
-            val action = FirstFragmentDirections.actionFirstFragmentToSecondFragment(photo.url, photo.title, photo.id)
+            val action = FirstFragmentDirections.actionFirstFragmentToSecondFragment(photo.url, photo.title, photo.owner)
             view.findNavController().navigate(action)
         }
     }
@@ -69,10 +74,6 @@ class FirstFragment : Fragment(), RecyclerItemClickListener.OnRecyclerClickListe
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-//        binding.buttonFirst.setOnClickListener {
-//            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-//        }
     }
 
     override fun onDestroyView() {

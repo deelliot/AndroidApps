@@ -41,4 +41,5 @@ interface ApiService {
         @Query(value = "api_key") apiKey: String = FLICKR_API_KEY,
         @Query(value = "text") searchTerm: String
     ): PhotosSearchResponse
+
 }
