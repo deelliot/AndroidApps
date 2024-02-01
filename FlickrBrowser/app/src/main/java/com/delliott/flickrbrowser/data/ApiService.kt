@@ -16,7 +16,7 @@ object ApiServiceProvider {
 
     val client: ApiService by lazy {
         val interceptor = HttpLoggingInterceptor()
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY) //prints out requests and responses
         val client: OkHttpClient = OkHttpClient.Builder()
             .addInterceptor(interceptor)
             .build()
