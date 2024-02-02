@@ -27,6 +27,7 @@ import com.delliott.recipes.data.Recipe
 @Composable
 fun RecipeCard(recipe: Recipe) {
     Card(
+        modifier = Modifier.padding(4.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 10.dp)
     ) {
         Row(modifier = Modifier.padding(all = 8.dp)) {
@@ -40,7 +41,7 @@ fun RecipeCard(recipe: Recipe) {
                     .clip(CircleShape)
                     .border(1.5.dp, MaterialTheme.colorScheme.primary, CircleShape)
             )
-            Spacer(modifier = Modifier.width(8.dp))
+            Spacer(modifier = Modifier.width(16.dp))
             Column {
                 Text(
                     text = recipe.name,
