@@ -16,4 +16,7 @@ data class Recipe(
     val cuisine: String,
     val image: String,
     val rating: Float,
-)
+) {
+    val totalTime : Int
+        get() = prepTimeMinutes + cookTimeMinutes
+}

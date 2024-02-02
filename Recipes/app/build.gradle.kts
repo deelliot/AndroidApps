@@ -44,7 +44,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = "1.5.8"
     }
     packaging {
         resources {
@@ -58,7 +58,7 @@ dependencies {
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
     implementation("androidx.activity:activity-compose:1.8.2")
-    implementation(platform("androidx.compose:compose-bom:2023.08.00"))
+    implementation(platform("androidx.compose:compose-bom:2024.01.00"))
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
@@ -75,6 +75,7 @@ dependencies {
     // dependency needed for viewmodel
     implementation("androidx.activity:activity-ktx:1.8.2")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
     // dependency needed for moshi
     implementation("com.squareup.moshi:moshi:1.14.0")
     ksp("com.squareup.moshi:moshi-kotlin-codegen:1.14.0")
@@ -83,6 +84,6 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-moshi:2.4.0")
     // dependency to log Retrofit requests
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
-    //dependency for picasso for image loading
-    implementation("com.squareup.picasso:picasso:2.8")
+    //dependency for coil for image loading
+    implementation("io.coil-kt:coil-compose:2.5.0")
 }

@@ -29,7 +29,7 @@ object ApiServiceProvider {
 }
 
 interface ApiService {
-    @GET("products")
+    @GET("recipes")
     suspend fun fetchAllRecipes(): AllRecipesSearchResponse
 }
 
