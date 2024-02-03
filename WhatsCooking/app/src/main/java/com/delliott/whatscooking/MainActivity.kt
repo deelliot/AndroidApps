@@ -6,10 +6,12 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.delliott.whatscooking.ui.HomeScreenViewModel
 import com.delliott.whatscooking.ui.theme.WhatsCookingTheme
 
 class MainActivity : ComponentActivity() {
@@ -17,12 +19,11 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             WhatsCookingTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    WhatsCookingApp()
                 }
             }
         }
@@ -30,17 +31,16 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
+fun WhatsCookingApp(
+    viewModel: HomeScreenViewModel = viewModel()
+    // navController: NavHostController = rememberNavController()
+) {
+    val uiState by viewModel.uiState.collectAsState()
+    if (uiState.errorMessage != null) {
+        //todo
+    } else {
+
+    }
+
 }
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    WhatsCookingTheme {
-        Greeting("Android")
-    }
-}

@@ -23,14 +23,7 @@ import com.delliott.whatscooking.domain.RecipePreviewModel
 
 @Composable
 
-fun HomeScreen() {
-    val list = listOf(
-        RecipePreviewModel("www.123.com", "chicken sandwich"),
-        RecipePreviewModel("www.123.com", "chicken sandwich"),
-        RecipePreviewModel("www.123.com", "chicken sandwich"),
-        RecipePreviewModel("www.123.com", "chicken sandwich")
-    )
-
+fun HomeScreen(recipeList: List<RecipePreviewModel>) {
     Column(
         modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -115,5 +108,10 @@ fun SelectMealTypeButton(
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview() {
-    HomeScreen()
+    val list = listOf(
+        RecipePreviewModel("www.123.com", "chicken sandwich"),
+        RecipePreviewModel("www.123.com", "chicken sandwich"),
+        RecipePreviewModel("www.123.com", "chicken sandwich"),
+        RecipePreviewModel("www.123.com", "chicken sandwich"))
+    HomeScreen(list)
 }
