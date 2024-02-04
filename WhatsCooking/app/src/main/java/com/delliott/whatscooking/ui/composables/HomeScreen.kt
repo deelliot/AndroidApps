@@ -23,7 +23,12 @@ import com.delliott.whatscooking.domain.RecipePreviewModel
 
 @Composable
 
-fun HomeScreen(recipeList: List<RecipePreviewModel>) {
+fun HomeScreen(
+
+    recipesTopRated: List<RecipePreviewModel>,
+    recipes30Mins: List<RecipePreviewModel>,
+    onMealTypeSelected: (mealType: String) -> Unit = {}
+) {
     Column(
         modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -43,9 +48,16 @@ fun HomeScreen(recipeList: List<RecipePreviewModel>) {
                 .padding(dimensionResource(R.dimen.padding_small)),
             horizontalArrangement = Arrangement.SpaceEvenly,
         ) {
-            SelectMealTypeButton(mealType = "Dinner", onClick = { /*TODO*/ })
-            SelectMealTypeButton(mealType = "Lunch", onClick = { /*TODO*/ })
-            SelectMealTypeButton(mealType = "Breakfast", onClick = { /*TODO*/ })
+            SelectMealTypeButton(mealType = "Dinner", onClick = {
+                onMealTypeSelected("Dinner")
+
+            })
+            SelectMealTypeButton(mealType = "Lunch", onClick = {
+                onMealTypeSelected("Lunch")
+            })
+            SelectMealTypeButton(mealType = "Breakfast", onClick = {
+                onMealTypeSelected("Breakfast")
+            })
         }
 
         //Spacer(modifier = Modifier.height(4.dp))
@@ -56,9 +68,12 @@ fun HomeScreen(recipeList: List<RecipePreviewModel>) {
                 .padding(dimensionResource(R.dimen.padding_small)),
             horizontalArrangement = Arrangement.Center,
         ) {
-            SelectMealTypeButton(mealType = "Snack", onClick = { /*TODO*/ })
+            SelectMealTypeButton(mealType = "Snack", onClick = {
+                onMealTypeSelected("Snack")
+            })
             Spacer(modifier = Modifier.width(16.dp))
-            SelectMealTypeButton(mealType = "Dessert", onClick = { /*TODO*/ })
+            SelectMealTypeButton(mealType = "Dessert", onClick = {
+                onMealTypeSelected("Dessert") })
         }
 
         Spacer(modifier = Modifier.height(4.dp))
@@ -72,7 +87,7 @@ fun HomeScreen(recipeList: List<RecipePreviewModel>) {
         )
         Spacer(modifier = Modifier.height(4.dp))
 
-        RecipeCarousel(recipePreviewList = list)
+        RecipeCarousel(recipePreviewList = recipes30Mins)
 
         Spacer(modifier = Modifier.height(4.dp))
 
@@ -85,7 +100,7 @@ fun HomeScreen(recipeList: List<RecipePreviewModel>) {
         )
         Spacer(modifier = Modifier.height(4.dp))
 
-        RecipeCarousel(recipePreviewList = list)
+        RecipeCarousel(recipePreviewList = recipesTopRated)
     }
 }
 
@@ -113,5 +128,5 @@ fun HomeScreenPreview() {
         RecipePreviewModel("www.123.com", "chicken sandwich"),
         RecipePreviewModel("www.123.com", "chicken sandwich"),
         RecipePreviewModel("www.123.com", "chicken sandwich"))
-    HomeScreen(list)
+    HomeScreen(list, list)
 }

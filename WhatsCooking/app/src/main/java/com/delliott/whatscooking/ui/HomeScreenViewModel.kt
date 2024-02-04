@@ -14,7 +14,7 @@ class HomeScreenViewModel : ViewModel() {
     val uiState
         get() = _uiState
 
-    suspend fun fetchRecipesByMealType(mealType: String) {
+    fun fetchRecipesByMealType(mealType: String) {
         if (mealType.isNotBlank()) {
             viewModelScope.launch {
                 val result = recipeRepository.getRecipebyMealType(mealType)

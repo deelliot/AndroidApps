@@ -12,6 +12,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.delliott.whatscooking.ui.HomeScreenViewModel
+import com.delliott.whatscooking.ui.composables.HomeScreen
 import com.delliott.whatscooking.ui.theme.WhatsCookingTheme
 
 class MainActivity : ComponentActivity() {
@@ -39,7 +40,13 @@ fun WhatsCookingApp(
     if (uiState.errorMessage != null) {
         //todo
     } else {
-
+        HomeScreen(
+            recipes30Mins = uiState.recipes30mins,
+            recipesTopRated = uiState.recipesTopRated,
+            onMealTypeSelected = { mealType: String ->
+                viewModel.fetchRecipesByMealType(mealType)
+            }
+        )
     }
 
 }
