@@ -1,8 +1,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    // added for ksp
     id("com.google.devtools.ksp")
+
 }
 
 android {
@@ -68,20 +68,20 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
-    //coil for image loading
-    implementation("io.coil-kt:coil-compose:2.5.0")
-// dependency needed to use coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
-    // dependency needed for viewmodel
-    implementation("androidx.activity:activity-ktx:1.8.2")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
+    // Optional - Integration with activities
+    implementation("androidx.activity:activity-compose:1.8.2")
+    // Optional - Integration with ViewModels
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
-    // dependency needed for moshi
-    implementation("com.squareup.moshi:moshi:1.14.0")
-    ksp("com.squareup.moshi:moshi-kotlin-codegen:1.14.0")
+    implementation("com.squareup.moshi:moshi:1.15.1")
     //dependency for retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-moshi:2.4.0")
     // dependency to log Retrofit requests
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
+    //coil for image loading
+    implementation("io.coil-kt:coil-compose:2.5.0")
+
+    //ksp
+    ksp("com.squareup.moshi:moshi-kotlin-codegen:1.15.1")
+    ksp("androidx.room:room-compiler:2.5.2")
 }
