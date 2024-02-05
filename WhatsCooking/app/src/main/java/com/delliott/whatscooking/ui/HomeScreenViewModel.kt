@@ -17,7 +17,7 @@ class HomeScreenViewModel : ViewModel() {
     fun fetchRecipesByMealType(mealType: String) {
         if (mealType.isNotBlank()) {
             viewModelScope.launch {
-                val result = recipeRepository.getRecipebyMealType(mealType)
+                val result = recipeRepository.getRecipeByMealType(mealType)
                 when (result) {
                     is NetworkResult.ApiError -> TODO()
                     is NetworkResult.ApiException -> {
@@ -25,9 +25,11 @@ class HomeScreenViewModel : ViewModel() {
                     }
 
                     is NetworkResult.ApiSuccess -> {
+                        clearList()
                         val recipes30Mins =
                             result.data.filter { it.totalTime <= 30 }.map { recipe ->
                                 RecipePreviewModel(
+                                    id = recipe.id,
                                     imageUrl = recipe.image,
                                     name = recipe.name
                                 )
@@ -35,6 +37,7 @@ class HomeScreenViewModel : ViewModel() {
                         val recipesTopRated =
                             result.data.filter { it.rating >= 4.0 }.map { recipe ->
                                 RecipePreviewModel(
+                                    id = recipe.id,
                                     imageUrl = recipe.image,
                                     name = recipe.name
                                 )
@@ -47,6 +50,18 @@ class HomeScreenViewModel : ViewModel() {
                 }
             }
         }
+    }
+
+    private fun clearList() {
+        val emptyList: List<RecipePreviewModel> = emptyList()
+        _uiState.value = RecipeUiState(
+            recipes30mins = emptyList,
+            recipesTopRated = emptyList
+        )
+    }
+    
+    fun fetchRecipeDetails(recipe: String) {
+        // TODO:  
     }
 }
 
