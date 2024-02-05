@@ -6,7 +6,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
-import retrofit2.http.Query
+import retrofit2.http.Path
 
 object ApiServiceProvider {
     private const val baseUrl = "https://dummyjson.com/"
@@ -32,8 +32,9 @@ object ApiServiceProvider {
 interface ApiService {
     @GET("recipes")
     suspend fun fetchAllRecipes(): AllRecipesSearchResponse
-    @GET("recipes")
+    @GET("recipes/meal-type/{mealType}")
     suspend fun fetchRecipesByMeal(
-        @Query(value = "meal-type") mealType: String
+        //@Query(value = "meal-type") mealType: String
+        @Path(value = "mealType") mealType: String
     ): AllRecipesSearchResponse
 }
