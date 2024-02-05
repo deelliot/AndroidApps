@@ -10,7 +10,7 @@ class RecipeRepository {
         }
     }
 
-    suspend fun getRecipebyMealType(mealType: String) : NetworkResult<List<Recipe>> {
+    suspend fun getRecipeByMealType(mealType: String) : NetworkResult<List<Recipe>> {
         try {
             val result = ApiServiceProvider.client.fetchRecipesByMeal(mealType)
             return NetworkResult.ApiSuccess(result.recipes)
