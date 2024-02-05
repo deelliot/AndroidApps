@@ -24,13 +24,14 @@ import com.delliott.whatscooking.domain.RecipePreviewModel
 @Composable
 
 fun HomeScreen(
-
     recipesTopRated: List<RecipePreviewModel>,
     recipes30Mins: List<RecipePreviewModel>,
-    onMealTypeSelected: (mealType: String) -> Unit = {}
+    onMealTypeSelected: (mealType: String) -> Unit = {},
+    onRecipeSelected: () -> Unit = {},
+    modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp),
+        modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_small))
     ) {
@@ -49,14 +50,14 @@ fun HomeScreen(
             horizontalArrangement = Arrangement.SpaceEvenly,
         ) {
             SelectMealTypeButton(mealType = "Dinner", onClick = {
-                onMealTypeSelected("Dinner")
+                onMealTypeSelected("dinner")
 
             })
             SelectMealTypeButton(mealType = "Lunch", onClick = {
-                onMealTypeSelected("Lunch")
+                onMealTypeSelected("lunch")
             })
             SelectMealTypeButton(mealType = "Breakfast", onClick = {
-                onMealTypeSelected("Breakfast")
+                onMealTypeSelected("breakfast")
             })
         }
 
@@ -69,11 +70,11 @@ fun HomeScreen(
             horizontalArrangement = Arrangement.Center,
         ) {
             SelectMealTypeButton(mealType = "Snack", onClick = {
-                onMealTypeSelected("Snack")
+                onMealTypeSelected("snack")
             })
             Spacer(modifier = Modifier.width(16.dp))
             SelectMealTypeButton(mealType = "Dessert", onClick = {
-                onMealTypeSelected("Dessert") })
+                onMealTypeSelected("dessert") })
         }
 
         Spacer(modifier = Modifier.height(4.dp))
