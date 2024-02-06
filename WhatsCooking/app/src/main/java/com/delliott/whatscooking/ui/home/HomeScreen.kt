@@ -61,9 +61,6 @@ fun HomeScreen(
                 onMealTypeSelected("breakfast")
             })
         }
-
-        //Spacer(modifier = Modifier.height(4.dp))
-
         Row(
             modifier = Modifier
                 .fillMaxWidth()

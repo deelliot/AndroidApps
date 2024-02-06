@@ -64,14 +64,12 @@ fun FullRecipeScreen(
                 Text(
                     text = recipe.name,
                     style = MaterialTheme.typography.headlineMedium,
-//                    modifier = Modifier.padding(8.dp)
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
                     text = "For ${recipe.servings} servings",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.inverseSurface,
-//                    modifier = Modifier.padding(horizontal = 8.dp)
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 IngredientsCard(ingredients = recipe.ingredients)
