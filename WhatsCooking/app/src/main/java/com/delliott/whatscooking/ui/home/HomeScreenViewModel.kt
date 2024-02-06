@@ -1,4 +1,4 @@
-package com.delliott.whatscooking.ui
+package com.delliott.whatscooking.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

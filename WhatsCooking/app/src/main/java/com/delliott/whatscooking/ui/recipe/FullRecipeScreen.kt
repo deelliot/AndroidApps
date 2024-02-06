@@ -1,4 +1,4 @@
-package com.delliott.whatscooking.ui.composables
+package com.delliott.whatscooking.ui.recipe
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -23,6 +23,8 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.delliott.whatscooking.R
 import com.delliott.whatscooking.data.RecipeDetailResponse
+import com.delliott.whatscooking.ui.recipe.composables.IngredientsCard
+import com.delliott.whatscooking.ui.recipe.composables.InstructionsCard
 
 @Composable
 fun FullRecipeScreen(

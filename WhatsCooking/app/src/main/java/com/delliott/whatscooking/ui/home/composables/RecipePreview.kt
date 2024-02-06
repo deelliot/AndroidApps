@@ -1,4 +1,4 @@
-package com.delliott.whatscooking.ui.composables
+package com.delliott.whatscooking.ui.home.composables
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

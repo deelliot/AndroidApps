@@ -1,4 +1,4 @@
-package com.delliott.whatscooking.ui.composables
+package com.delliott.whatscooking.ui.recipe.composables
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row

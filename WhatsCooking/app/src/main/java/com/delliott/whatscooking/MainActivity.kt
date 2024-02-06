@@ -30,10 +30,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.delliott.whatscooking.ui.FullRecipeViewModel
-import com.delliott.whatscooking.ui.HomeScreenViewModel
-import com.delliott.whatscooking.ui.composables.FullRecipeScreen
-import com.delliott.whatscooking.ui.composables.HomeScreen
+import com.delliott.whatscooking.ui.recipe.FullRecipeViewModel
+import com.delliott.whatscooking.ui.home.HomeScreenViewModel
+import com.delliott.whatscooking.ui.recipe.FullRecipeScreen
+import com.delliott.whatscooking.ui.home.HomeScreen
 import com.delliott.whatscooking.ui.theme.WhatsCookingTheme
 
 class MainActivity : ComponentActivity() {

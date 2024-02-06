@@ -1,4 +1,4 @@
-package com.delliott.whatscooking.ui.composables
+package com.delliott.whatscooking.ui.home.composables
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow

@@ -1,4 +1,4 @@
-package com.delliott.whatscooking.ui.composables
+package com.delliott.whatscooking.ui.home
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -20,6 +20,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.delliott.whatscooking.R
 import com.delliott.whatscooking.domain.RecipePreviewModel
+import com.delliott.whatscooking.ui.home.composables.RecipeCarousel
+import com.delliott.whatscooking.ui.home.composables.SearchTextField
 
 @Composable
 fun HomeScreen(
