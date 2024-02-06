@@ -23,14 +23,14 @@ import com.delliott.whatscooking.domain.RecipePreviewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RecipePreview(recipePreview: RecipePreviewModel, onClick:() -> Unit = {}) {
+fun RecipePreview(recipePreview: RecipePreviewModel, onRecipeSelected: (recipeId: Int) -> Unit = {}) {
 
     Card(
         modifier = Modifier.padding(all = 4.dp).size(140.dp),
         elevation = CardDefaults.cardElevation(4.dp),
-        onClick = onClick
-
-        // TODO: add on click
+        onClick = {
+            onRecipeSelected(recipePreview.id)
+        }
     ) {
         Box {
             AsyncImage(
@@ -57,5 +57,5 @@ fun RecipePreview(recipePreview: RecipePreviewModel, onClick:() -> Unit = {}) {
 @Preview(showBackground = true)
 @Composable
 fun RecipePreviewPreview() {
-    RecipePreview(RecipePreviewModel("www.123.com", "chicken sandwich"))
+    RecipePreview(RecipePreviewModel(id = 1,"www.123.com", "chicken sandwich"))
 }
