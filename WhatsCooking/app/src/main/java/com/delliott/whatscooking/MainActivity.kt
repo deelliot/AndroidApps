@@ -18,6 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -29,7 +30,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.delliott.whatscooking.ui.FullRecipeViewModel
 import com.delliott.whatscooking.ui.HomeScreenViewModel
+import com.delliott.whatscooking.ui.composables.FullRecipeScreen
 import com.delliott.whatscooking.ui.composables.HomeScreen
 import com.delliott.whatscooking.ui.theme.WhatsCookingTheme
 
@@ -49,9 +52,12 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-enum class RecipeScreen(@StringRes val title: Int) {
-    HomeScreen(title = R.string.app_name),
-    FullRecipeScreen(title = R.string.FullRecipeScreen)
+enum class RecipeScreen(
+    @StringRes val title: Int,
+    val route: String,
+) {
+    HomeScreen(title = R.string.app_name, "home"),
+    FullRecipeScreen(title = R.string.FullRecipeScreen, "recipes/{recipeId}")
 }
 
 
@@ -82,13 +88,14 @@ fun AppBar(
 
 @Composable
 fun WhatsCookingApp(
-    viewModel: HomeScreenViewModel = viewModel(),
+    homeViewModel: HomeScreenViewModel = viewModel(),
+    fullRecipeViewModel: FullRecipeViewModel = viewModel(),
     navController: NavHostController = rememberNavController(),
 ) {
     val backStackEntry by navController.currentBackStackEntryAsState()
-    val currentScreen = RecipeScreen.valueOf(
-        backStackEntry?.destination?.route ?: RecipeScreen.HomeScreen.name
-    )
+    val currentScreen = RecipeScreen.entries.firstOrNull {
+        it.route == backStackEntry?.destination?.route
+    } ?: RecipeScreen.HomeScreen
     Scaffold(
         topBar = {
             AppBar(
@@ -98,31 +105,52 @@ fun WhatsCookingApp(
             )
         }
     ) { innerPadding ->
-        val uiState by viewModel.uiState.collectAsState()
 
         NavHost(
             navController = navController,
-            startDestination = RecipeScreen.HomeScreen.name,
+            startDestination = "home",
             modifier = Modifier.padding(innerPadding)
         ) {
-            composable(RecipeScreen.HomeScreen.name) {
+            composable(RecipeScreen.HomeScreen.route) {
+                val uiState by homeViewModel.uiState.collectAsState()
                 if (uiState.errorMessage != null) {
                     // TODO:
                 }
+
+                LaunchedEffect(key1 = Unit, block = {
+                    // get all recipes, and then filter
+                })
                 HomeScreen(
                     recipesTopRated = uiState.recipesTopRated,
                     recipes30Mins = uiState.recipes30mins,
                     onMealTypeSelected = { mealType: String ->
-                        viewModel.fetchRecipesByMealType(mealType)
+                        homeViewModel.fetchRecipesByMealType(mealType)
                     },
-                    onRecipeSelected = {
-                        viewModel.fetchRecipeDetails()
-                        navController.navigate(RecipeScreen.FullRecipeScreen.name)
+                    onRecipeSelected = { recipeId: Int ->
+                        navController.navigate("recipes/$recipeId")
                     },
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(dimensionResource(R.dimen.padding_medium))
                 )
+            }
+            composable(RecipeScreen.FullRecipeScreen.route) { navBackStackEntry ->
+                val recipeId = navBackStackEntry.arguments?.getString("recipeId")!!
+                val uiState by fullRecipeViewModel.uiState.collectAsState()
+
+                LaunchedEffect(key1 = recipeId, block = {
+                    fullRecipeViewModel.fetchRecipeDetails(recipeId.toInt())
+                })
+
+                if (uiState.errorMessage != null) {
+                    // TODO:
+                } else if (uiState.recipeDetails != null) {
+                    FullRecipeScreen(
+                        uiState.recipeDetails!!,
+                        modifier = Modifier
+                            .fillMaxSize()
+                    )
+                }
             }
         }
 

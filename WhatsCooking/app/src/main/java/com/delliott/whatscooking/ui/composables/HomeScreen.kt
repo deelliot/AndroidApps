@@ -22,12 +22,11 @@ import com.delliott.whatscooking.R
 import com.delliott.whatscooking.domain.RecipePreviewModel
 
 @Composable
-
 fun HomeScreen(
     recipesTopRated: List<RecipePreviewModel>,
     recipes30Mins: List<RecipePreviewModel>,
     onMealTypeSelected: (mealType: String) -> Unit = {},
-    onRecipeSelected: () -> Unit = {},
+    onRecipeSelected: (recipeId: Int) -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -88,7 +87,7 @@ fun HomeScreen(
         )
         Spacer(modifier = Modifier.height(4.dp))
 
-        RecipeCarousel(recipePreviewList = recipes30Mins)
+        RecipeCarousel(recipePreviewList = recipes30Mins, onRecipeSelected)
 
         Spacer(modifier = Modifier.height(4.dp))
 
@@ -101,7 +100,7 @@ fun HomeScreen(
         )
         Spacer(modifier = Modifier.height(4.dp))
 
-        RecipeCarousel(recipePreviewList = recipesTopRated)
+        RecipeCarousel(recipePreviewList = recipesTopRated, onRecipeSelected)
     }
 }
 
@@ -125,9 +124,9 @@ fun SelectMealTypeButton(
 @Composable
 fun HomeScreenPreview() {
     val list = listOf(
-        RecipePreviewModel("www.123.com", "chicken sandwich"),
-        RecipePreviewModel("www.123.com", "chicken sandwich"),
-        RecipePreviewModel("www.123.com", "chicken sandwich"),
-        RecipePreviewModel("www.123.com", "chicken sandwich"))
+        RecipePreviewModel(id = 1,"www.123.com", "chicken sandwich"),
+        RecipePreviewModel(id = 1,"www.123.com", "chicken sandwich"),
+        RecipePreviewModel(id = 1,"www.123.com", "chicken sandwich"),
+        RecipePreviewModel(id = 1,"www.123.com", "chicken sandwich"))
     HomeScreen(list, list)
 }

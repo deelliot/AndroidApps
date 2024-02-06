@@ -14,6 +14,7 @@ class HomeScreenViewModel : ViewModel() {
     val uiState
         get() = _uiState
 
+
     fun fetchRecipesByMealType(mealType: String) {
         if (mealType.isNotBlank()) {
             viewModelScope.launch {
@@ -58,10 +59,6 @@ class HomeScreenViewModel : ViewModel() {
             recipes30mins = emptyList,
             recipesTopRated = emptyList
         )
-    }
-    
-    fun fetchRecipeDetails(recipe: String) {
-        // TODO:  
     }
 }
 
