@@ -1,21 +1,33 @@
 package com.delliott.whatscooking.data
 
+import android.util.Log
+
 class RecipeRepository {
     suspend fun getAllRecipes(): NetworkResult<List<Recipe>> {
-        try {
+        return try {
             val result = ApiServiceProvider.client.fetchAllRecipes()
-            return NetworkResult.ApiSuccess(result.recipes)
+            NetworkResult.ApiSuccess(result.recipes)
         } catch (e: Exception) {
-            return NetworkResult.ApiException(e)
+            NetworkResult.ApiException(e)
         }
     }
 
     suspend fun getRecipeByMealType(mealType: String) : NetworkResult<List<Recipe>> {
-        try {
+        return try {
             val result = ApiServiceProvider.client.fetchRecipesByMeal(mealType)
-            return NetworkResult.ApiSuccess(result.recipes)
+            NetworkResult.ApiSuccess(result.recipes)
         } catch (e: Exception) {
-            return NetworkResult.ApiException(e)
+            NetworkResult.ApiException(e)
+        }
+    }
+
+    suspend fun getRecipeDetails(recipeId: Int) : NetworkResult<RecipeDetailResponse> {
+        Log.d("TEST", "LOADING")
+        return try {
+            val result = ApiServiceProvider.client.fetchRecipeDetails(recipeId)
+            NetworkResult.ApiSuccess(result)
+        } catch (e: Exception) {
+            NetworkResult.ApiException(e)
         }
     }
 }
