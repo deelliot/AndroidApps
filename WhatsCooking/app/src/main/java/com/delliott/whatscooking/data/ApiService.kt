@@ -37,4 +37,9 @@ interface ApiService {
         //@Query(value = "meal-type") mealType: String
         @Path(value = "mealType") mealType: String
     ): AllRecipesSearchResponse
+
+    @GET("recipes/{id}")
+    suspend fun fetchRecipeDetails(
+        @Path(value = "id") recipeId: Int
+    ) :RecipeDetailResponse
 }
