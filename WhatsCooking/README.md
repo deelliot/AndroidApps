@@ -61,3 +61,4 @@ Bon appétit and happy cooking with What's Cooking! 🍳👩‍🍳👨‍🍳
 
 ![HomeScreen](https://github.com/deelliot/AndroidApps/assets/93197340/3d406b97-7911-46b4-b419-047cfef7f9ea)
 ![RecipeDetails](https://github.com/deelliot/AndroidApps/assets/93197340/95e494bf-20ea-4706-81fc-2fdab44b1bd0)
+![SearchScreen](https://github.com/deelliot/AndroidApps/assets/93197340/fdf9f13e-19be-41e3-acd4-895e8cc44b42)
