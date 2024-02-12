@@ -58,3 +58,6 @@ The app relies on the following key dependencies, managed through Gradle:
 Refer to the `build.gradle` files for the latest versions of these dependencies.
 
 Bon appétit and happy cooking with What's Cooking! 🍳👩‍🍳👨‍🍳
+
+![HomeScreen](https://github.com/deelliot/AndroidApps/assets/93197340/3d406b97-7911-46b4-b419-047cfef7f9ea)
+![RecipeDetails](https://github.com/deelliot/AndroidApps/assets/93197340/95e494bf-20ea-4706-81fc-2fdab44b1bd0)
