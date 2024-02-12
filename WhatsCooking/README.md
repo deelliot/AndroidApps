@@ -5,7 +5,7 @@ Welcome to What's Cooking! This Android app is your recipe browsing companion, d
 
 ## Overview
 
-What's Cooking offers users a chance to explore recipes, with filtering options based on meal type and sorting functionality by total time or top-rated recipes. This app is still a work in progress, an primarily created as a learning tool. Future features will include search functionality. Built using Kotlin, the app leverages Kotlin Coroutines, Retrofit, Moshi, and Coil to handle asynchronous tasks, retrieve data, parse JSON responses, and load images efficiently.
+What's Cooking offers users a chance to explore recipes, with filtering options based on meal type, sorting functionality by total time or top-rated recipes or searching through recipes with keywords. This app is still a work in progress, an primarily created as a learning tool. Built using Kotlin, the app leverages Kotlin Coroutines, Retrofit, Moshi, and Coil to handle asynchronous tasks, retrieve data, parse JSON responses, and load images efficiently.
 ## Features
 
 - **Recipe Browsing**: Explore a diverse range of recipes, ready to tantalize your taste buds.
@@ -14,7 +14,7 @@ What's Cooking offers users a chance to explore recipes, with filtering options 
 
 - **Sorting Functionality**: Sort recipes by total time or top-rated, enabling quick access to desired recipes.
 
-- **Search (Upcoming)**: A search feature is in development, enhancing the app's usability even further.
+- **Search**: A search feature enables users to find recipes quickly by name, enhancing the app's usability even further.
 
 - **MVVM Architecture**: What's Cooking adheres to the MVVM architecture pattern, promoting modularity and maintainability.
 
