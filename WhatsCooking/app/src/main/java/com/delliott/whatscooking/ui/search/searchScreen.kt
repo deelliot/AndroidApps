@@ -13,6 +13,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -34,7 +35,7 @@ fun SearchScreen(
     onRecipeSelected: (recipeId: Int) -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
-    Column(modifier = modifier){
+    Column(modifier = modifier) {
         Text(
             text = "Showing results for: $searchTerm",
             style = MaterialTheme.typography.titleMedium,
@@ -47,20 +48,25 @@ fun SearchScreen(
         Spacer(modifier = Modifier.height(8.dp))
         LazyColumn() {
             items(recipeList) {
-                RecipeCard(recipe = it)
+                RecipeCard(recipe = it, onRecipeSelected)
             }
         }
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RecipeCard(recipe: Recipe) {
+fun RecipeCard(
+    recipe: Recipe,
+    onRecipeSelected: (recipeId: Int) -> Unit = {},
+) {
     Card(
         modifier = Modifier
             .padding(all = 4.dp)
             .height(160.dp)
             .fillMaxWidth(),
-        elevation = CardDefaults.cardElevation(4.dp)
+        elevation = CardDefaults.cardElevation(4.dp),
+        onClick = { onRecipeSelected(recipe.id) }
     ) {
         Row() {
             Box() {
@@ -90,7 +96,7 @@ fun RecipeCard(recipe: Recipe) {
                 Spacer(modifier = Modifier.height(12.dp))
                 Row(
                     verticalAlignment = Alignment.CenterVertically
-                ){
+                ) {
                     Icon(
                         painterResource(id = R.drawable.ic_restuarant),
                         contentDescription = null,

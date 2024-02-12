@@ -136,7 +136,7 @@ fun WhatsCookingApp(
                     },
                     onSearchChanged = { searchTerm: String ->
                         homeViewModel.setSearchTerm(searchTerm)
-                       // navController.navigate("search/$searchTerm")
+                        // navController.navigate("search/$searchTerm")
                         // TODO: add loading bar
                     },
                     onSearchClicked = {
@@ -172,16 +172,17 @@ fun WhatsCookingApp(
                 searchViewModel.fetchSearchRecipes(searchTerm)
                 if (uiState.errorMessage != null) {
                     // TODO:
-            }
-                else if (uiState.recipes != null) {
+                } else if (uiState.recipes != null) {
                     SearchScreen(
                         searchTerm = searchTerm,
                         recipeList = uiState.recipes,
-                        modifier = Modifier.fillMaxSize())
-            }
+                        modifier = Modifier.fillMaxSize(),
+                        onRecipeSelected = { recipeId: Int ->
+                            navController.navigate("recipes/$recipeId")
+                        })
+                }
             }
         }
-
     }
 }
 
