@@ -27,8 +27,11 @@ import com.delliott.whatscooking.ui.home.composables.SearchTextField
 fun HomeScreen(
     recipesTopRated: List<RecipePreviewModel>,
     recipes30Mins: List<RecipePreviewModel>,
+    searchTerm: String,
     onMealTypeSelected: (mealType: String) -> Unit = {},
     onRecipeSelected: (recipeId: Int) -> Unit = {},
+    onSearchChanged: (String) -> Unit = {},
+    onSearchClicked: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -42,7 +45,7 @@ fun HomeScreen(
             modifier = Modifier.padding(vertical = 8.dp)
         )
         Spacer(modifier = Modifier.height(4.dp))
-        SearchTextField()
+        SearchTextField(searchTerm, onValueChange = onSearchChanged, onSearchClicked = onSearchClicked)
         Spacer(modifier = Modifier.height(4.dp))
         Row(
             modifier = Modifier
@@ -78,7 +81,7 @@ fun HomeScreen(
         Spacer(modifier = Modifier.height(4.dp))
 
         Text(
-            text = "30 minute meals",
+            text = "30 Minute Meals",
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(all = 4.dp),
@@ -122,10 +125,11 @@ fun SelectMealTypeButton(
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview() {
+    val string = "tomato"
     val list = listOf(
         RecipePreviewModel(id = 1,"www.123.com", "chicken sandwich"),
         RecipePreviewModel(id = 1,"www.123.com", "chicken sandwich"),
         RecipePreviewModel(id = 1,"www.123.com", "chicken sandwich"),
         RecipePreviewModel(id = 1,"www.123.com", "chicken sandwich"))
-    HomeScreen(list, list)
+    HomeScreen(list, list, string)
 }

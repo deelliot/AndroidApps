@@ -30,6 +30,15 @@ class RecipeRepository {
             NetworkResult.ApiException(e)
         }
     }
+
+    suspend fun getSearchRecipes(searchTerm: String) : NetworkResult<List<Recipe>> {
+        return try {
+            val result = ApiServiceProvider.client.fetchSearchRecipes(searchTerm)
+            NetworkResult.ApiSuccess(result.recipes)
+        } catch (e: Exception) {
+            NetworkResult.ApiException(e)
+        }
+    }
 }
 
 sealed class NetworkResult<T : Any> {

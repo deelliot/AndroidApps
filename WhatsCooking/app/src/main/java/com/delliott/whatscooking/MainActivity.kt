@@ -34,6 +34,8 @@ import com.delliott.whatscooking.ui.home.HomeScreen
 import com.delliott.whatscooking.ui.home.HomeScreenViewModel
 import com.delliott.whatscooking.ui.recipe.FullRecipeScreen
 import com.delliott.whatscooking.ui.recipe.FullRecipeViewModel
+import com.delliott.whatscooking.ui.search.SearchScreen
+import com.delliott.whatscooking.ui.search.SearchViewModel
 import com.delliott.whatscooking.ui.theme.WhatsCookingTheme
 
 class MainActivity : ComponentActivity() {
@@ -56,10 +58,10 @@ enum class RecipeScreen(
     @StringRes val title: Int,
     val route: String,
 ) {
-    HomeScreen(title = R.string.app_name, "home"),
-    FullRecipeScreen(title = R.string.FullRecipeScreen, "recipes/{recipeId}")
+    HomeScreen(title = R.string.homeScreen, "home"),
+    FullRecipeScreen(title = R.string.FullRecipeScreen, "recipes/{recipeId}"),
+    SearchScreen(title = R.string.searchScreen, route = "search/{searchTerm}")
 }
-
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
@@ -90,6 +92,7 @@ fun AppBar(
 fun WhatsCookingApp(
     homeViewModel: HomeScreenViewModel = viewModel(),
     fullRecipeViewModel: FullRecipeViewModel = viewModel(),
+    searchViewModel: SearchViewModel = viewModel(),
     navController: NavHostController = rememberNavController(),
 ) {
     val backStackEntry by navController.currentBackStackEntryAsState()
@@ -119,16 +122,25 @@ fun WhatsCookingApp(
 
                 LaunchedEffect(key1 = Unit, block = {
                     homeViewModel.fetchAllRecipes()
-
+                    // TODO: add loading bar
                 })
                 HomeScreen(
                     recipesTopRated = uiState.recipesTopRated,
                     recipes30Mins = uiState.recipes30mins,
+                    searchTerm = uiState.searchTerm,
                     onMealTypeSelected = { mealType: String ->
                         homeViewModel.fetchRecipesByMealType(mealType)
                     },
                     onRecipeSelected = { recipeId: Int ->
                         navController.navigate("recipes/$recipeId")
+                    },
+                    onSearchChanged = { searchTerm: String ->
+                        homeViewModel.setSearchTerm(searchTerm)
+                       // navController.navigate("search/$searchTerm")
+                        // TODO: add loading bar
+                    },
+                    onSearchClicked = {
+                        navController.navigate("search/${uiState.searchTerm}")
                     },
                     modifier = Modifier
                         .fillMaxSize()
@@ -152,6 +164,21 @@ fun WhatsCookingApp(
                             .fillMaxSize()
                     )
                 }
+            }
+            composable(RecipeScreen.SearchScreen.route) { navBackStackEntry ->
+                val searchTerm = navBackStackEntry.arguments?.getString("searchTerm")!!
+                val uiState by searchViewModel.uiState.collectAsState()
+
+                searchViewModel.fetchSearchRecipes(searchTerm)
+                if (uiState.errorMessage != null) {
+                    // TODO:
+            }
+                else if (uiState.recipes != null) {
+                    SearchScreen(
+                        searchTerm = searchTerm,
+                        recipeList = uiState.recipes,
+                        modifier = Modifier.fillMaxSize())
+            }
             }
         }
 

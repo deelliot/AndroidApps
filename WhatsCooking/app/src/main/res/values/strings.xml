@@ -3,4 +3,5 @@
     <string name="homeScreen">Home</string>
     <string name="FullRecipeScreen">Recipe Details</string>
     <string name="back_button">Back</string>
+    <string name="searchScreen">Search</string>
 </resources>

@@ -7,6 +7,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 object ApiServiceProvider {
     private const val baseUrl = "https://dummyjson.com/"
@@ -42,4 +43,9 @@ interface ApiService {
     suspend fun fetchRecipeDetails(
         @Path(value = "id") recipeId: Int
     ) :RecipeDetailResponse
+
+    @GET("recipes/search")
+    suspend fun fetchSearchRecipes(
+        @Query(value = "q") searchTerm: String
+    ): AllRecipesSearchResponse
 }

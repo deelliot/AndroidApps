@@ -29,13 +29,26 @@ import com.delliott.whatscooking.data.Recipe
 
 @Composable
 fun SearchScreen(
+    searchTerm: String,
     recipeList: List<Recipe>,
     onRecipeSelected: (recipeId: Int) -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
-    LazyColumn(modifier = modifier) {
-        items(recipeList) {
-            RecipeCard(recipe = it)
+    Column(modifier = modifier){
+        Text(
+            text = "Showing results for: $searchTerm",
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.inverseSurface,
+            modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.CenterHorizontally)
+                .padding(4.dp)
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        LazyColumn() {
+            items(recipeList) {
+                RecipeCard(recipe = it)
+            }
         }
     }
 }
@@ -175,5 +188,5 @@ fun SearchScreenPreview() {
             rating = 4.0f
         )
     )
-    SearchScreen(list)
+    SearchScreen("bananas", list)
 }
