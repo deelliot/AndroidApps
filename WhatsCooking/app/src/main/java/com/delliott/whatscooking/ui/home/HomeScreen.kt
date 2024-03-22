@@ -126,25 +126,6 @@ fun HomeScreen(
 }
 
 @Composable
-fun AddRecipeFAB(modifier: Modifier, context: Context, onClick: () -> Unit) {
-    FloatingActionButton(
-        modifier = modifier,
-        onClick = {
-            Toast.makeText(context, "Floating action button", Toast.LENGTH_LONG).show()
-            onClick()
-        },
-        containerColor = MaterialTheme.colorScheme.primaryContainer,
-        contentColor = MaterialTheme.colorScheme.secondary,
-        elevation = FloatingActionButtonDefaults.elevation(
-            defaultElevation = 8.dp
-        )
-//        shape = CircleShape
-    ) {
-        Icon(Icons.Filled.Add, "Add Recipe Floating Action Button.")
-    }
-}
-
-@Composable
 fun SelectMealTypeButton(
     mealType: String,
     onClick: () -> Unit,
