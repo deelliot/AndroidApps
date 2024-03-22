@@ -172,7 +172,7 @@ fun WhatsCookingApp(
                 searchViewModel.fetchSearchRecipes(searchTerm)
                 if (uiState.errorMessage != null) {
                     // TODO:
-                } else if (uiState.recipes != null) {
+                } else {
                     SearchScreen(
                         searchTerm = searchTerm,
                         recipeList = uiState.recipes,
