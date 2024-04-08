@@ -30,6 +30,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.delliott.whatscooking.ui.addRecipe.AddRecipeScreen
+import com.delliott.whatscooking.ui.addRecipe.AddRecipeViewModel
 import com.delliott.whatscooking.ui.home.HomeScreen
 import com.delliott.whatscooking.ui.home.HomeScreenViewModel
 import com.delliott.whatscooking.ui.recipe.FullRecipeScreen
@@ -60,7 +62,8 @@ enum class RecipeScreen(
 ) {
     HomeScreen(title = R.string.homeScreen, "home"),
     FullRecipeScreen(title = R.string.FullRecipeScreen, "recipes/{recipeId}"),
-    SearchScreen(title = R.string.searchScreen, route = "search/{searchTerm}")
+    SearchScreen(title = R.string.searchScreen, route = "search/{searchTerm}"),
+    AddRecipeScreen(title = R.string.addNewRecipeScreen, route = "new recipe")
 }
 
 @Composable
@@ -93,6 +96,7 @@ fun WhatsCookingApp(
     homeViewModel: HomeScreenViewModel = viewModel(),
     fullRecipeViewModel: FullRecipeViewModel = viewModel(),
     searchViewModel: SearchViewModel = viewModel(),
+    addRecipeViewModel: AddRecipeViewModel = viewModel(),
     navController: NavHostController = rememberNavController(),
 ) {
     val backStackEntry by navController.currentBackStackEntryAsState()
@@ -142,6 +146,9 @@ fun WhatsCookingApp(
                     onSearchClicked = {
                         navController.navigate("search/${uiState.searchTerm}")
                     },
+                    onNewRecipeClicked = {
+                        navController.navigate(route = "new recipe")
+                    },
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(dimensionResource(R.dimen.padding_medium))
@@ -182,7 +189,26 @@ fun WhatsCookingApp(
                         })
                 }
             }
+            composable(RecipeScreen.AddRecipeScreen.route) {
+                val uiState by addRecipeViewModel.uiState.collectAsState()
+                val newRecipe = uiState.newRecipe
+                if (uiState.errorMessage != null) {
+                    // TODO:
+                }
+                else
+                    AddRecipeScreen(
+                        newRecipe = newRecipe,
+                        onNameChanged = { addRecipeViewModel.addName(it) },
+                        onCuisineSelected = { addRecipeViewModel.addCuisine(it) },
+                        onServingSizeChanged = { addRecipeViewModel.addServingSize(it) },
+                        onPrepTimeAdded = { addRecipeViewModel.addPrepTime(it) },
+                        onCookTimeAdded = { addRecipeViewModel.addCookTime(it) },
+                        onIngredientAdded = { addRecipeViewModel.addIngredient(it) },
+                        onIngredientRemoved = { addRecipeViewModel.removeIngredient(it) },
+                        onInstructionAdded = { addRecipeViewModel.addInstruction(it) },
+                        onInstructionRemoved = { addRecipeViewModel.removeInstruction(it) }
+                    )
+            }
         }
     }
 }
-
