@@ -41,7 +41,8 @@ fun AddRecipeScreen(
     onIngredientAdded: (String) -> Unit = {},
     onIngredientRemoved: (Int) -> Unit = {},
     onInstructionAdded: (String) -> Unit = {},
-    onInstructionRemoved: (Int) -> Unit = {}
+    onInstructionRemoved: (Int) -> Unit = {},
+    onRecipeSaved: () -> Unit = {}
 ) {
     Box(){
         LazyColumn(
@@ -127,8 +128,10 @@ fun AddRecipeScreen(
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
                 .align(Alignment.BottomCenter),
-            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primaryContainer, contentColor = MaterialTheme.colorScheme.secondary),
-            onClick = { /*TODO*/ }) {
+            colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                contentColor = MaterialTheme.colorScheme.secondary),
+            onClick = { onRecipeSaved() }) {
             Text("Save")
         }
     }

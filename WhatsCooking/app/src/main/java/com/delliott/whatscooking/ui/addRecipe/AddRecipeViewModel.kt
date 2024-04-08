@@ -1,5 +1,6 @@
 package com.delliott.whatscooking.ui.addRecipe
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.delliott.whatscooking.domain.InputResult
 import com.delliott.whatscooking.domain.NewRecipeModel
@@ -98,6 +99,10 @@ class AddRecipeViewModel : ViewModel() {
         val newRecipe = uiState.value.newRecipe.copy(
             instructions = InputResult(currentList))
         _uiState.value = _uiState.value.copy(newRecipe = newRecipe)
+    }
+
+    fun saveRecipe() {
+        Log.i("NewRecipe", "New Recipe: ${_uiState.value.newRecipe}")
     }
 }
 

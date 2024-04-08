@@ -206,7 +206,8 @@ fun WhatsCookingApp(
                         onIngredientAdded = { addRecipeViewModel.addIngredient(it) },
                         onIngredientRemoved = { addRecipeViewModel.removeIngredient(it) },
                         onInstructionAdded = { addRecipeViewModel.addInstruction(it) },
-                        onInstructionRemoved = { addRecipeViewModel.removeInstruction(it) }
+                        onInstructionRemoved = { addRecipeViewModel.removeInstruction(it) },
+                        onRecipeSaved = { addRecipeViewModel.saveRecipe() }
                     )
             }
         }
