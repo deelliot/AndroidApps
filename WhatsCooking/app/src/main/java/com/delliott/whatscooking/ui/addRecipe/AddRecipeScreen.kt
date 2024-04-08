@@ -139,17 +139,6 @@ fun AddRecipeScreen(
 fun AddRecipeScreenPreview() {
     Box(modifier = Modifier.fillMaxSize()) {
         AddRecipeScreen(
-//            newRecipe = NewRecipeModel(
-//                id = "123",
-//                name = "pizza",
-//                ingredients = listOf("onion", "dough", "pineapple"),
-//                instructions = listOf("turn on oven", "bake", "enjoy"),
-//                prepTimeMinutes = 0,
-//                cookTimeMinutes = 20,
-//                cuisine = "italian",
-//                servings = 1,
-//                image = "blah"
-//            )
             newRecipe = NewRecipeModel(
                 id = "123",
                 name = InputResult("pizza"),
