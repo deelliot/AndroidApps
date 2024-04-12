@@ -85,4 +85,11 @@ dependencies {
     ksp("androidx.room:room-compiler:2.5.2")
     //navigation bar with compose
     implementation("androidx.navigation:navigation-compose:2.7.6")
+    //room
+    implementation("androidx.room:room-runtime:2.6.1")
+    annotationProcessor("androidx.room:room-compiler:2.6.1")
+    // To use Kotlin Symbol Processing (KSP)
+    ksp("androidx.room:room-compiler:2.6.1")
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation("androidx.room:room-ktx:2.6.1")
 }
