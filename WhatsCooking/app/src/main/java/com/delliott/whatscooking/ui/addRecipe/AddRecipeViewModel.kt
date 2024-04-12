@@ -1,13 +1,21 @@
 package com.delliott.whatscooking.ui.addRecipe
 
+import android.app.Application
 import android.util.Log
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.viewModelScope
+import com.delliott.whatscooking.dao.RecipeDatabase
+import com.delliott.whatscooking.data.RecipeRepository
 import com.delliott.whatscooking.domain.InputResult
 import com.delliott.whatscooking.domain.NewRecipeModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
 import java.util.UUID
 
-class AddRecipeViewModel : ViewModel() {
+class AddRecipeViewModel(application: Application) : AndroidViewModel(application) {
+
+    private val recipeDatabase = RecipeDatabase.getDatabase(application)
+    private val recipeRepository = RecipeRepository(recipeDatabase.dao())
     private val _uiState = MutableStateFlow(NewRecipeState())
     val uiState //type stateFlow (make immutable)
         get() = _uiState
@@ -33,11 +41,13 @@ class AddRecipeViewModel : ViewModel() {
         val convertedServingSize = stringToInt(servingSize)
         if (convertedServingSize == -1) {
             val newRecipe = uiState.value.newRecipe.copy(
-                servings = InputResult(0, error = "enter value in minutes"))
+                servings = InputResult(0, error = "enter value in minutes")
+            )
             _uiState.value = _uiState.value.copy(newRecipe = newRecipe)
         } else {
             val newRecipe = uiState.value.newRecipe.copy(
-                servings = InputResult(convertedServingSize))
+                servings = InputResult(convertedServingSize)
+            )
             _uiState.value = _uiState.value.copy(newRecipe = newRecipe)
         }
     }
@@ -47,11 +57,13 @@ class AddRecipeViewModel : ViewModel() {
         val convertedPrepTime = stringToInt(prepTime)
         if (convertedPrepTime == -1) {
             val newRecipe = uiState.value.newRecipe.copy(
-                prepTimeMinutes = InputResult(0, error = "enter value in minutes"))
+                prepTimeMinutes = InputResult(0, error = "enter value in minutes")
+            )
             _uiState.value = _uiState.value.copy(newRecipe = newRecipe)
         } else {
             val newRecipe = uiState.value.newRecipe.copy(
-                prepTimeMinutes = InputResult(convertedPrepTime))
+                prepTimeMinutes = InputResult(convertedPrepTime)
+            )
             _uiState.value = _uiState.value.copy(newRecipe = newRecipe)
         }
     }
@@ -60,11 +72,13 @@ class AddRecipeViewModel : ViewModel() {
         val convertedCookTime = stringToInt(cookTime)
         if (convertedCookTime == -1) {
             val newRecipe = uiState.value.newRecipe.copy(
-                cookTimeMinutes = InputResult(0, error = "enter value in minutes"))
+                cookTimeMinutes = InputResult(0, error = "enter value in minutes")
+            )
             _uiState.value = _uiState.value.copy(newRecipe = newRecipe)
         } else {
             val newRecipe = uiState.value.newRecipe.copy(
-                cookTimeMinutes = InputResult(convertedCookTime))
+                cookTimeMinutes = InputResult(convertedCookTime)
+            )
             _uiState.value = _uiState.value.copy(newRecipe = newRecipe)
         }
     }
@@ -73,7 +87,8 @@ class AddRecipeViewModel : ViewModel() {
         val currentList = _uiState.value.newRecipe.ingredients.value.toMutableList()
         currentList.add(ingredient)
         val newRecipe = uiState.value.newRecipe.copy(
-            ingredients = InputResult(currentList))
+            ingredients = InputResult(currentList)
+        )
         _uiState.value = _uiState.value.copy(newRecipe = newRecipe)
     }
 
@@ -81,7 +96,8 @@ class AddRecipeViewModel : ViewModel() {
         val currentList = _uiState.value.newRecipe.ingredients.value.toMutableList()
         currentList.removeAt(ingredient)
         val newRecipe = uiState.value.newRecipe.copy(
-            ingredients = InputResult(currentList))
+            ingredients = InputResult(currentList)
+        )
         _uiState.value = _uiState.value.copy(newRecipe = newRecipe)
     }
 
@@ -89,7 +105,8 @@ class AddRecipeViewModel : ViewModel() {
         val currentList = _uiState.value.newRecipe.instructions.value.toMutableList()
         currentList.add(instruction)
         val newRecipe = uiState.value.newRecipe.copy(
-            instructions = InputResult(currentList))
+            instructions = InputResult(currentList)
+        )
         _uiState.value = _uiState.value.copy(newRecipe = newRecipe)
     }
 
@@ -97,15 +114,18 @@ class AddRecipeViewModel : ViewModel() {
         val currentList = _uiState.value.newRecipe.instructions.value.toMutableList()
         currentList.removeAt(instruction)
         val newRecipe = uiState.value.newRecipe.copy(
-            instructions = InputResult(currentList))
+            instructions = InputResult(currentList)
+        )
         _uiState.value = _uiState.value.copy(newRecipe = newRecipe)
     }
 
     fun saveRecipe() {
         Log.i("NewRecipe", "New Recipe: ${_uiState.value.newRecipe}")
+        viewModelScope.launch {
+            recipeRepository.saveRecipe(_uiState.value.newRecipe)
+        }
     }
 }
-
 
 data class NewRecipeState(
     val newRecipe: NewRecipeModel = NewRecipeModel(
@@ -119,7 +139,5 @@ data class NewRecipeState(
         cuisine = InputResult(""),
         image = ""
     ),
-//    val ingredientsList: List<String> = emptyList(),
-//    val instructionsList: List<String> = emptyList(),
     val errorMessage: String? = null,
 )

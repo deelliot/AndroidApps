@@ -1,7 +1,9 @@
 package com.delliott.whatscooking.ui.home
 
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.delliott.whatscooking.dao.RecipeDatabase
 import com.delliott.whatscooking.data.NetworkResult
 import com.delliott.whatscooking.data.Recipe
 import com.delliott.whatscooking.data.RecipeRepository
@@ -9,8 +11,9 @@ import com.delliott.whatscooking.domain.RecipePreviewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
-class HomeScreenViewModel : ViewModel() {
-    private val recipeRepository = RecipeRepository()
+class HomeScreenViewModel(application: Application) : AndroidViewModel(application) {
+    private val recipeDatabase = RecipeDatabase.getDatabase(application)
+    private val recipeRepository = RecipeRepository(recipeDatabase.dao())
     private val _uiState = MutableStateFlow(RecipeUiState())
     val uiState
         get() = _uiState
@@ -75,11 +78,10 @@ class HomeScreenViewModel : ViewModel() {
     }
 }
 
-
-
 data class RecipeUiState(
     val recipes30mins: List<RecipePreviewModel> = emptyList(),
     val recipesTopRated: List<RecipePreviewModel> = emptyList(),
+    val allRecipes: List<RecipePreviewModel> = emptyList(),
     val searchTerm: String = "",
     val errorMessage: String? = null,
 )
