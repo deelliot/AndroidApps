@@ -10,6 +10,7 @@ data class NewRecipeModel (
     val servings: InputResult<Int>,
     val cuisine: InputResult<String>,
     val image: String,
+    val isLocal: Boolean = true
 ){
     val totalTime : Int
         get() = prepTimeMinutes.value + cookTimeMinutes.value

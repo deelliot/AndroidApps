@@ -33,7 +33,8 @@ data class RecipeDetailResponse(
     val servings: Int,
     val cuisine: String,
     val image: String,
-    val rating: Float
+    val rating: Float,
+    val isLocal: Boolean = false
 ){
     val totalTime : Int
         get() = prepTimeMinutes + cookTimeMinutes
