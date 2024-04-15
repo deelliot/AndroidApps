@@ -30,6 +30,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.delliott.whatscooking.ui.addRecipe.AddRecipeScreen
 import com.delliott.whatscooking.ui.addRecipe.AddRecipeViewModel
 import com.delliott.whatscooking.ui.home.HomeScreen
@@ -41,6 +42,7 @@ import com.delliott.whatscooking.ui.search.SearchViewModel
 import com.delliott.whatscooking.ui.theme.WhatsCookingTheme
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -61,7 +63,7 @@ enum class RecipeScreen(
     val route: String,
 ) {
     HomeScreen(title = R.string.homeScreen, "home"),
-    FullRecipeScreen(title = R.string.FullRecipeScreen, "recipes/{recipeId}"),
+    FullRecipeScreen(title = R.string.FullRecipeScreen, "recipes/{recipeId}?isLocal={isLocal}"),
     SearchScreen(title = R.string.searchScreen, route = "search/{searchTerm}"),
     AddRecipeScreen(title = R.string.addNewRecipeScreen, route = "new recipe")
 }
@@ -135,8 +137,9 @@ fun WhatsCookingApp(
                     onMealTypeSelected = { mealType: String ->
                         homeViewModel.fetchRecipesByMealType(mealType)
                     },
-                    onRecipeSelected = { recipeId: Int ->
-                        navController.navigate("recipes/$recipeId")
+                    onRecipeSelected = { recipeId: String, isLocal: Boolean ->
+                        //navController.navigate("recipes/$recipeId")
+                        navController.navigate("recipes/$recipeId?isLocal=$isLocal")
                     },
                     onSearchChanged = { searchTerm: String ->
                         homeViewModel.setSearchTerm(searchTerm)
@@ -154,12 +157,16 @@ fun WhatsCookingApp(
                         .padding(dimensionResource(R.dimen.padding_medium))
                 )
             }
-            composable(RecipeScreen.FullRecipeScreen.route) { navBackStackEntry ->
+            composable(
+                RecipeScreen.FullRecipeScreen.route,
+                arguments = listOf(navArgument("isLocal") { defaultValue = false })
+            ) { navBackStackEntry ->
                 val recipeId = navBackStackEntry.arguments?.getString("recipeId")!!
+                val isLocal = navBackStackEntry.arguments?.getBoolean("isLocal") ?: false
                 val uiState by fullRecipeViewModel.uiState.collectAsState()
 
-                LaunchedEffect(key1 = recipeId, block = {
-                    fullRecipeViewModel.fetchRecipeDetails(recipeId.toInt())
+                LaunchedEffect(key1 = recipeId, key2 = isLocal, block = {
+                    fullRecipeViewModel.fetchRecipeDetails(recipeId, isLocal)
                 })
 
                 if (uiState.errorMessage != null) {
@@ -184,7 +191,7 @@ fun WhatsCookingApp(
                         searchTerm = searchTerm,
                         recipeList = uiState.recipes,
                         modifier = Modifier.fillMaxSize(),
-                        onRecipeSelected = { recipeId: Int ->
+                        onRecipeSelected = { recipeId: String ->
                             navController.navigate("recipes/$recipeId")
                         })
                 }
@@ -207,7 +214,9 @@ fun WhatsCookingApp(
                         onIngredientRemoved = { addRecipeViewModel.removeIngredient(it) },
                         onInstructionAdded = { addRecipeViewModel.addInstruction(it) },
                         onInstructionRemoved = { addRecipeViewModel.removeInstruction(it) },
-                        onRecipeSaved = { addRecipeViewModel.saveRecipe() }
+                        onRecipeSaved = { addRecipeViewModel.saveRecipe()
+                        //navController.navigate("home")
+                        }
                     )
             }
         }

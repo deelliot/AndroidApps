@@ -10,7 +10,7 @@ import androidx.compose.ui.unit.dp
 import com.delliott.whatscooking.domain.RecipePreviewModel
 
 @Composable
-fun RecipeCarousel(recipePreviewList: List<RecipePreviewModel>, onRecipeSelected: (recipeId: Int) -> Unit = {}) {
+fun RecipeCarousel(recipePreviewList: List<RecipePreviewModel>, onRecipeSelected: (recipeId: String, isLocal: Boolean) -> Unit = { _,_ -> }) {
     LazyRow(modifier = Modifier.padding(4.dp)) {
         items(recipePreviewList) {
             RecipePreview(it, onRecipeSelected)
@@ -22,10 +22,10 @@ fun RecipeCarousel(recipePreviewList: List<RecipePreviewModel>, onRecipeSelected
 @Composable
 fun RecipeCarouselPreview() {
     val list = listOf(
-        RecipePreviewModel(id = 1,"www.123.com", "chicken sandwich"),
-        RecipePreviewModel(id = 1,"www.123.com", "chicken sandwich"),
-        RecipePreviewModel(id = 1,"www.123.com", "chicken sandwich"),
-        RecipePreviewModel(id = 1,"www.123.com", "chicken sandwich"),
+        RecipePreviewModel(id = "1","www.123.com", "chicken sandwich", true),
+        RecipePreviewModel(id = "1","www.123.com", "chicken sandwich", true),
+        RecipePreviewModel(id = "1","www.123.com", "chicken sandwich", true),
+        RecipePreviewModel(id = "1","www.123.com", "chicken sandwich", true),
     )
     RecipeCarousel(list)
 }

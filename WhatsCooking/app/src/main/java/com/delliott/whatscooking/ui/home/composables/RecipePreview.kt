@@ -21,15 +21,16 @@ import coil.compose.AsyncImage
 import com.delliott.whatscooking.R
 import com.delliott.whatscooking.domain.RecipePreviewModel
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RecipePreview(recipePreview: RecipePreviewModel, onRecipeSelected: (recipeId: Int) -> Unit = {}) {
+fun RecipePreview(recipePreview: RecipePreviewModel, onRecipeSelected: (recipeId: String, isLocal: Boolean) -> Unit = { _,_ -> }) {
 
     Card(
         modifier = Modifier.padding(all = 4.dp).size(140.dp),
         elevation = CardDefaults.cardElevation(4.dp),
         onClick = {
-            onRecipeSelected(recipePreview.id)
+            onRecipeSelected(recipePreview.id, recipePreview.isLocal)
         }
     ) {
         Box {
@@ -57,5 +58,5 @@ fun RecipePreview(recipePreview: RecipePreviewModel, onRecipeSelected: (recipeId
 @Preview(showBackground = true)
 @Composable
 fun RecipePreviewPreview() {
-    RecipePreview(RecipePreviewModel(id = 1,"www.123.com", "chicken sandwich"))
+    RecipePreview(RecipePreviewModel(id = "1","www.123.com", "chicken sandwich", true))
 }

@@ -22,13 +22,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.delliott.whatscooking.R
-import com.delliott.whatscooking.data.RecipeDetailResponse
+import com.delliott.whatscooking.domain.Recipe
 import com.delliott.whatscooking.ui.recipe.composables.IngredientsCard
 import com.delliott.whatscooking.ui.recipe.composables.InstructionsCard
 
 @Composable
 fun FullRecipeScreen(
-    recipe: RecipeDetailResponse,
+    recipe: Recipe,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
@@ -84,8 +84,8 @@ fun FullRecipeScreen(
 @Preview(showBackground = true)
 @Composable
 fun FullRecipeScreenPreview() {
-    val recipe: RecipeDetailResponse = RecipeDetailResponse(
-        id = 1,
+    val recipe = Recipe (
+        id = "1",
         name = "Classic Margherita Pizza",
         ingredients = listOf(
             "Pizza dough",
@@ -103,12 +103,13 @@ fun FullRecipeScreenPreview() {
             "Bake in the preheated oven for 12-15 minutes or until the crust is golden brown.",
             "Slice and serve hot."
         ),
-        prepTimeMinutes = 20,
-        cookTimeMinutes = 15,
+        prepTime = 20,
+        cookTime = 15,
         servings = 4,
         image = "https://cdn.dummyjson.com/recipe-images/1.webp",
         cuisine = "Italian",
-        rating = 4.6f
+        rating = 4.6f,
+        isLocal = true
     )
     FullRecipeScreen(recipe = recipe)
 }

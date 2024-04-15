@@ -26,14 +26,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.delliott.whatscooking.R
-import com.delliott.whatscooking.data.Recipe
+import com.delliott.whatscooking.domain.Recipe
+
 
 @Composable
 fun SearchScreen(
+    modifier: Modifier = Modifier,
     searchTerm: String,
     recipeList: List<Recipe>,
-    onRecipeSelected: (recipeId: Int) -> Unit = {},
-    modifier: Modifier = Modifier,
+    onRecipeSelected: (recipeId: String) -> Unit = {},
 ) {
     Column(modifier = modifier) {
         Text(
@@ -58,7 +59,7 @@ fun SearchScreen(
 @Composable
 fun RecipeCard(
     recipe: Recipe,
-    onRecipeSelected: (recipeId: Int) -> Unit = {},
+    onRecipeSelected: (recipeId: String) -> Unit = {},
 ) {
     Card(
         modifier = Modifier
@@ -147,14 +148,17 @@ fun RecipeCard(
 @Composable
 fun RecipeCardPreview() {
     val recipe: Recipe = (Recipe(
-        id = 1,
+        id = "1",
         name = "chicken curry",
-        prepTimeMinutes = 20,
-        cookTimeMinutes = 30,
+        prepTime = 20,
+        cookTime = 30,
         servings = 4,
         cuisine = "Indian",
         image = "www.123.com",
-        rating = 4.0f
+        rating = 4.0f,
+        ingredients = emptyList(),
+        instructions = emptyList(),
+        isLocal = true
     ))
     RecipeCard(recipe)
 }
@@ -164,35 +168,44 @@ fun RecipeCardPreview() {
 fun SearchScreenPreview() {
     val list = listOf(
         Recipe(
-            id = 1,
+            id = "1",
             name = "chicken curry",
-            prepTimeMinutes = 20,
-            cookTimeMinutes = 30,
+            prepTime = 20,
+            cookTime = 30,
             servings = 4,
             cuisine = "Indian",
             image = "www.123.com",
-            rating = 4.0f
+            rating = 4.0f,
+            ingredients = emptyList(),
+            instructions = emptyList(),
+            isLocal = true
         ),
         Recipe(
-            id = 1,
+            id = "1",
             name = "chicken curry",
-            prepTimeMinutes = 20,
-            cookTimeMinutes = 30,
+            prepTime = 20,
+            cookTime = 30,
             servings = 4,
             cuisine = "Indian",
             image = "www.123.com",
-            rating = 4.0f
+            rating = 4.0f,
+            ingredients = emptyList(),
+            instructions = emptyList(),
+            isLocal = true
         ),
         Recipe(
-            id = 1,
+            id = "1",
             name = "chicken curry",
-            prepTimeMinutes = 20,
-            cookTimeMinutes = 30,
+            prepTime = 20,
+            cookTime = 30,
             servings = 4,
             cuisine = "Indian",
             image = "www.123.com",
-            rating = 4.0f
+            rating = 4.0f,
+            ingredients = emptyList(),
+            instructions = emptyList(),
+            isLocal = true
         )
     )
-    SearchScreen("bananas", list)
+    SearchScreen( searchTerm = "bananas", recipeList = list)
 }

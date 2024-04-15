@@ -5,8 +5,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.delliott.whatscooking.dao.RecipeDatabase
 import com.delliott.whatscooking.data.NetworkResult
-import com.delliott.whatscooking.data.Recipe
 import com.delliott.whatscooking.data.RecipeRepository
+import com.delliott.whatscooking.domain.Recipe
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 

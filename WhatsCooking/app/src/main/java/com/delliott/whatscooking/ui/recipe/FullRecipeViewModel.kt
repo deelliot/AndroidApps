@@ -5,8 +5,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.delliott.whatscooking.dao.RecipeDatabase
 import com.delliott.whatscooking.data.NetworkResult
-import com.delliott.whatscooking.data.RecipeDetailResponse
 import com.delliott.whatscooking.data.RecipeRepository
+import com.delliott.whatscooking.domain.Recipe
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
@@ -17,9 +17,9 @@ class FullRecipeViewModel(application: Application) : AndroidViewModel(applicati
     val uiState
         get() = _uiState
 
-    fun fetchRecipeDetails(recipeId: Int) {
+    fun fetchRecipeDetails(recipeId: String, isLocal: Boolean) {
         viewModelScope.launch {
-            val result = recipeRepository.getRecipeDetails(recipeId)
+            val result = recipeRepository.getRecipeDetails(recipeId, isLocal)
             when (result) {
                 is NetworkResult.ApiError -> TODO()
                 is NetworkResult.ApiException -> {
@@ -35,6 +35,6 @@ class FullRecipeViewModel(application: Application) : AndroidViewModel(applicati
 }
 
 data class RecipeDetailsUiState(
-    val recipeDetails: RecipeDetailResponse? = null,
+    val recipeDetails: Recipe? = null,
     val errorMessage: String? = null,
 )

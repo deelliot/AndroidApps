@@ -15,5 +15,7 @@ data class RecipeEntity (
     val servings: Int,
     val cuisine: String,
     val image: String,
-    val totalTime: Int
-)
+) {
+    val totalTime : Int
+        get() = prepTime + cookTime
+}

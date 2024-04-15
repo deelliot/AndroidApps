@@ -1,12 +1,13 @@
 package com.delliott.whatscooking.ui.home
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.delliott.whatscooking.dao.RecipeDatabase
 import com.delliott.whatscooking.data.NetworkResult
-import com.delliott.whatscooking.data.Recipe
 import com.delliott.whatscooking.data.RecipeRepository
+import com.delliott.whatscooking.domain.Recipe
 import com.delliott.whatscooking.domain.RecipePreviewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -23,7 +24,8 @@ class HomeScreenViewModel(application: Application) : AndroidViewModel(applicati
             RecipePreviewModel(
                 id = recipe.id,
                 imageUrl = recipe.image,
-                name = recipe.name
+                name = recipe.name,
+                isLocal = recipe.isLocal
             )
         }
     }
@@ -34,6 +36,8 @@ class HomeScreenViewModel(application: Application) : AndroidViewModel(applicati
                 is NetworkResult.ApiError -> TODO()
                 is NetworkResult.ApiException -> {
                     _uiState.value = RecipeUiState(errorMessage = result.e.message)
+                    Log.d("exception", _uiState.value.errorMessage!!)
+
                 }
                 is NetworkResult.ApiSuccess -> {
                     val recipes30Mins = result.data.filterRecipes {it.totalTime <= 30 }
