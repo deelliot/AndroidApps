@@ -4,7 +4,6 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Query
 import androidx.room.Upsert
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface RecipeDao {
@@ -16,5 +15,8 @@ interface RecipeDao {
     suspend fun deleteRecipe(recipe: RecipeEntity)
 
     @Query("SELECT * FROM recipeEntity ORDER BY name ASC")
-    fun getRecipeOrderedByName(): Flow<List<RecipeEntity>>
+    suspend fun getRecipeOrderedByName():List<RecipeEntity>
+
+    @Query("SELECT * FROM recipeEntity WHERE id = :id")
+    suspend fun getRecipeById(id: String): RecipeEntity
 }
