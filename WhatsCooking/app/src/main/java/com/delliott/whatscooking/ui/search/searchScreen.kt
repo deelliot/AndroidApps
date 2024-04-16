@@ -34,7 +34,7 @@ fun SearchScreen(
     modifier: Modifier = Modifier,
     searchTerm: String,
     recipeList: List<Recipe>,
-    onRecipeSelected: (recipeId: String) -> Unit = {},
+    onRecipeSelected: (String, Boolean) -> Unit = {_,_ ->},
 ) {
     Column(modifier = modifier) {
         Text(
@@ -59,7 +59,7 @@ fun SearchScreen(
 @Composable
 fun RecipeCard(
     recipe: Recipe,
-    onRecipeSelected: (recipeId: String) -> Unit = {},
+    onRecipeSelected: (recipeId: String, isLocal: Boolean) -> Unit = {_,_ ->},
 ) {
     Card(
         modifier = Modifier
@@ -67,7 +67,7 @@ fun RecipeCard(
             .height(160.dp)
             .fillMaxWidth(),
         elevation = CardDefaults.cardElevation(4.dp),
-        onClick = { onRecipeSelected(recipe.id) }
+        onClick = { onRecipeSelected(recipe.id, recipe.isLocal) }
     ) {
         Row() {
             Box() {

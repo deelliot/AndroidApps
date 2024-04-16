@@ -190,10 +190,10 @@ fun WhatsCookingApp(
                     SearchScreen(
                         searchTerm = searchTerm,
                         recipeList = uiState.recipes,
-                        modifier = Modifier.fillMaxSize(),
-                        onRecipeSelected = { recipeId: String ->
-                            navController.navigate("recipes/$recipeId")
-                        })
+                        modifier = Modifier.fillMaxSize()
+                    ) { recipeId: String, isLocal: Boolean ->
+                        navController.navigate("recipes/$recipeId?isLocal=$isLocal")
+                    }
                 }
             }
             composable(RecipeScreen.AddRecipeScreen.route) {
@@ -214,11 +214,16 @@ fun WhatsCookingApp(
                         onIngredientRemoved = { addRecipeViewModel.removeIngredient(it) },
                         onInstructionAdded = { addRecipeViewModel.addInstruction(it) },
                         onInstructionRemoved = { addRecipeViewModel.removeInstruction(it) },
-                        onRecipeSaved = { addRecipeViewModel.saveRecipe()
-                        //navController.navigate("home")
+                        onRecipeSaved = { recipeId: String, isLocal: Boolean ->
+                            addRecipeViewModel.saveRecipe()
+                            //navController.navigate("recipes/$recipeId?isLocal=$isLocal")
+                            navController.navigate("home")
                         }
                     )
             }
         }
     }
 }
+
+
+// TODO: dependency injection, navigation from newRecipe to home,
