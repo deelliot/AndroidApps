@@ -2,6 +2,9 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp")
+    //hit
+    kotlin("kapt")
+    id("com.google.dagger.hilt.android")
 
 }
 
@@ -92,4 +95,11 @@ dependencies {
     ksp("androidx.room:room-compiler:2.6.1")
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation("androidx.room:room-ktx:2.6.1")
+    //hilt
+    implementation("com.google.dagger:hilt-android:2.44")
+    kapt("com.google.dagger:hilt-android-compiler:2.44")
+}
+// Allow references to generated code
+kapt {
+    correctErrorTypes = true
 }
