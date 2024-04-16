@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
@@ -13,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -20,12 +22,15 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun SimpleTextField(
+    modifier: Modifier = Modifier,
     text: String,
     label: String,
-    modifier: Modifier = Modifier,
     errorMessage: String? = null,
     onValueChange: (String) -> Unit,
-    keyboardOptions: KeyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Ascii),
+    keyboardOptions: KeyboardOptions = KeyboardOptions(
+        keyboardType = KeyboardType.Ascii,
+        imeAction = ImeAction.Done),
+    keyboardActions: KeyboardActions = KeyboardActions()
 ) {
     Column(
         modifier = modifier
@@ -36,6 +41,7 @@ fun SimpleTextField(
             onValueChange = { onValueChange(it) },
             label = { Text(label) },
             keyboardOptions = keyboardOptions,
+            keyboardActions = keyboardActions
         )
         Box(
             modifier = Modifier
