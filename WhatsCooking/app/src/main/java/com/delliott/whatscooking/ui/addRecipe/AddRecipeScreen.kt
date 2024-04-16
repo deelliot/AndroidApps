@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ElevatedButton
@@ -18,8 +19,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
@@ -30,6 +35,7 @@ import com.delliott.whatscooking.domain.NewRecipeModel
 import com.delliott.whatscooking.ui.addRecipe.composables.RecipeInputComponent
 import com.delliott.whatscooking.ui.addRecipe.composables.SimpleTextField
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun AddRecipeScreen(
     newRecipe: NewRecipeModel,
@@ -42,7 +48,7 @@ fun AddRecipeScreen(
     onIngredientRemoved: (Int) -> Unit = {},
     onInstructionAdded: (String) -> Unit = {},
     onInstructionRemoved: (Int) -> Unit = {},
-    onRecipeSaved: () -> Unit = {}
+    onRecipeSaved: (String, Boolean) -> Unit = {_,_ ->}
 ) {
     Box(){
         LazyColumn(
@@ -55,12 +61,17 @@ fun AddRecipeScreen(
         ) {
             item {
                 Column {
+                    val focusManager = LocalFocusManager.current
                     Spacer(modifier = Modifier.height(8.dp))
                     SimpleTextField(
                         text = newRecipe.name.value,
                         label = "Name",
                         onValueChange = onNameChanged,
-                        errorMessage = newRecipe.name.error
+                        errorMessage = newRecipe.name.error,
+                        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                        keyboardActions = KeyboardActions {
+                            focusManager.moveFocus(FocusDirection.Next)
+                        }
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     Row(
@@ -71,7 +82,10 @@ fun AddRecipeScreen(
                             label = "Cuisine",
                             modifier = Modifier.weight(1f),
                             onValueChange = onCuisineSelected,
-                            errorMessage = newRecipe.cuisine.error
+                            errorMessage = newRecipe.cuisine.error,
+                            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                            keyboardActions = KeyboardActions {
+                                focusManager.moveFocus(FocusDirection.Next) }
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         SimpleTextField(
@@ -80,7 +94,11 @@ fun AddRecipeScreen(
                             modifier = Modifier.weight(1f),
                             onValueChange = onServingSizeChanged,
                             errorMessage = newRecipe.servings.error,
-                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                            keyboardOptions = KeyboardOptions(
+                                keyboardType = KeyboardType.Number,
+                                imeAction = ImeAction.Next),
+                            keyboardActions = KeyboardActions {
+                                focusManager.moveFocus(FocusDirection.Next) }
                         )
                     }
                     Spacer(modifier = Modifier.height(8.dp))
@@ -93,7 +111,10 @@ fun AddRecipeScreen(
                             modifier = Modifier.weight(1f),
                             onValueChange = onPrepTimeAdded,
                             errorMessage = newRecipe.prepTimeMinutes.error,
-                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number,
+                                imeAction = ImeAction.Next),
+                            keyboardActions = KeyboardActions {
+                                focusManager.moveFocus(FocusDirection.Next) }
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         SimpleTextField(
@@ -102,7 +123,10 @@ fun AddRecipeScreen(
                             modifier = Modifier.weight(1f),
                             onValueChange = onCookTimeAdded,
                             errorMessage = newRecipe.cookTimeMinutes.error,
-                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number,
+                                imeAction = ImeAction.Next),
+                            keyboardActions = KeyboardActions {
+                                focusManager.moveFocus(FocusDirection.Next) }
                         )
                     }
                     Spacer(modifier = Modifier.height(8.dp))
@@ -131,7 +155,7 @@ fun AddRecipeScreen(
             colors = ButtonDefaults.buttonColors(
                 containerColor = MaterialTheme.colorScheme.primaryContainer,
                 contentColor = MaterialTheme.colorScheme.secondary),
-            onClick = { onRecipeSaved() }) {
+            onClick = { onRecipeSaved(newRecipe.id, true) }) {
             Text("Save")
         }
     }
@@ -156,3 +180,4 @@ fun AddRecipeScreenPreview() {
         )
     }
 }
+
