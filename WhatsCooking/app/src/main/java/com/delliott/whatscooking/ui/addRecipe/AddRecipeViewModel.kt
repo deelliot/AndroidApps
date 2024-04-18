@@ -1,21 +1,22 @@
 package com.delliott.whatscooking.ui.addRecipe
 
-import android.app.Application
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.delliott.whatscooking.dao.RecipeDatabase
 import com.delliott.whatscooking.data.RecipeRepository
 import com.delliott.whatscooking.domain.InputResult
 import com.delliott.whatscooking.domain.NewRecipeModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import java.util.UUID
+import javax.inject.Inject
 
-class AddRecipeViewModel(application: Application) : AndroidViewModel(application) {
+@HiltViewModel
+class AddRecipeViewModel @Inject constructor(
+    private val recipeRepository: RecipeRepository,
+) : ViewModel() {
 
-    private val recipeDatabase = RecipeDatabase.getDatabase(application)
-    private val recipeRepository = RecipeRepository(recipeDatabase.dao())
     private val _uiState = MutableStateFlow(NewRecipeState())
     val uiState //type stateFlow (make immutable)
         get() = _uiState

@@ -1,8 +1,6 @@
 package com.delliott.whatscooking.dao
 
-import android.content.Context
 import androidx.room.Database
-import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(entities = [RecipeEntity::class], version = 1)
@@ -10,22 +8,23 @@ import androidx.room.RoomDatabase
 abstract class RecipeDatabase: RoomDatabase() {
     abstract fun dao(): RecipeDao
 
-    companion object {
-        @Volatile
-        private var INSTANCE: RecipeDatabase? = null
-        fun getDatabase(context: Context): RecipeDatabase {
-            // if the INSTANCE is not null, then return it,
-            // if it is, then create the database
-            return INSTANCE ?: synchronized(this) {
-                val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                   RecipeDatabase::class.java,
-                    "recipe_database"
-                ).build()
-                INSTANCE = instance
-                // return instance
-                instance
-            }
-        }
-    }
+//    companion object {
+//        @Volatile
+//        private var INSTANCE: RecipeDatabase? = null
+//        fun getDatabase(context: Context): RecipeDatabase {
+//            // if the INSTANCE is not null, then return it,
+//            // if it is, then create the database
+//            return INSTANCE ?: synchronized(this) {
+//                val instance = Room.databaseBuilder(
+//                    context.applicationContext,
+//                   RecipeDatabase::class.java,
+//                    "recipe_database"
+//                ).build()
+//                INSTANCE = instance
+//                // return instance
+//                instance
+//            }
+//        }
+//    }
 }
+// replace companion object with dagger singleton

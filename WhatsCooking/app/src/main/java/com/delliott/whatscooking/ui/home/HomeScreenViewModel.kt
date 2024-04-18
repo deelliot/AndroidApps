@@ -1,20 +1,24 @@
 package com.delliott.whatscooking.ui.home
 
-import android.app.Application
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.delliott.whatscooking.dao.RecipeDatabase
+import com.delliott.whatscooking.MyApp
 import com.delliott.whatscooking.data.NetworkResult
 import com.delliott.whatscooking.data.RecipeRepository
 import com.delliott.whatscooking.domain.Recipe
 import com.delliott.whatscooking.domain.RecipePreviewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HomeScreenViewModel(application: Application) : AndroidViewModel(application) {
-    private val recipeDatabase = RecipeDatabase.getDatabase(application)
-    private val recipeRepository = RecipeRepository(recipeDatabase.dao())
+@HiltViewModel
+class HomeScreenViewModel @Inject constructor(
+    private val recipeRepository: RecipeRepository,
+    myApp: MyApp,
+) : ViewModel() {
+
     private val _uiState = MutableStateFlow(RecipeUiState())
     val uiState
         get() = _uiState
@@ -39,8 +43,9 @@ class HomeScreenViewModel(application: Application) : AndroidViewModel(applicati
                     Log.d("exception", _uiState.value.errorMessage!!)
 
                 }
+
                 is NetworkResult.ApiSuccess -> {
-                    val recipes30Mins = result.data.filterRecipes {it.totalTime <= 30 }
+                    val recipes30Mins = result.data.filterRecipes { it.totalTime <= 30 }
 
                     // function literal: function isn't declared, passed immediately as expression.
                     // fun compare(totalTime: Int, filterOption: 30): Boolean = totalTime < filterOption
@@ -63,6 +68,7 @@ class HomeScreenViewModel(application: Application) : AndroidViewModel(applicati
                     is NetworkResult.ApiException -> {
                         _uiState.value = RecipeUiState(errorMessage = result.e.message)
                     }
+
                     is NetworkResult.ApiSuccess -> {
                         //clearList()
                         val recipes30Mins = result.data.filterRecipes { it.totalTime <= 30 }

@@ -5,12 +5,16 @@ import com.delliott.whatscooking.dao.RecipeEntity
 import com.delliott.whatscooking.domain.NewRecipeModel
 import com.delliott.whatscooking.domain.Recipe
 import java.util.UUID
+import javax.inject.Inject
 
-class RecipeRepository(private val recipeDao: RecipeDao) {
+class RecipeRepository @Inject constructor(
+    private val recipeDao: RecipeDao,
+    private val apiService: ApiService
+) {
 
     suspend fun getAllRecipes(): NetworkResult<List<Recipe>> {
         return try {
-            val result = ApiServiceProvider.client.fetchAllRecipes()
+            val result = apiService.fetchAllRecipes()
             val networkList = result.recipes.map {
                 convertRecipeResponseToDomainModel(it)
             }
@@ -26,7 +30,7 @@ class RecipeRepository(private val recipeDao: RecipeDao) {
 
     suspend fun getRecipeByMealType(mealType: String): NetworkResult<List<Recipe>> {
         return try {
-            val result = ApiServiceProvider.client.fetchRecipesByMeal(mealType)
+            val result = apiService.fetchRecipesByMeal(mealType)
             val networkList = result.recipes.map {
                 convertRecipeResponseToDomainModel(it)
             }
@@ -51,7 +55,7 @@ class RecipeRepository(private val recipeDao: RecipeDao) {
             if (isLocal) {
                 recipe = (convertRoomEntityToDomainModel(recipeDao.getRecipeById(recipeId)))
             } else {
-                val result = ApiServiceProvider.client.fetchRecipeDetails(recipeId.toInt())
+                val result = apiService.fetchRecipeDetails(recipeId.toInt())
                 recipe = convertRecipeResponseToDomainModel(result)
             }
             NetworkResult.ApiSuccess(recipe)
@@ -62,7 +66,7 @@ class RecipeRepository(private val recipeDao: RecipeDao) {
 
     suspend fun getSearchRecipes(searchTerm: String): NetworkResult<List<Recipe>> {
         return try {
-            val result = ApiServiceProvider.client.fetchSearchRecipes(searchTerm)
+            val result = apiService.fetchSearchRecipes(searchTerm)
             val networkList = result.recipes.map {
                 convertRecipeResponseToDomainModel(it)
             }

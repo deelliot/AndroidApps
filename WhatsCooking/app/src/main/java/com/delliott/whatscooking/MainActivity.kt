@@ -40,7 +40,9 @@ import com.delliott.whatscooking.ui.recipe.FullRecipeViewModel
 import com.delliott.whatscooking.ui.search.SearchScreen
 import com.delliott.whatscooking.ui.search.SearchViewModel
 import com.delliott.whatscooking.ui.theme.WhatsCookingTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
