@@ -40,15 +40,6 @@ class RecipeRepository @Inject constructor(
         }
     }
 
-    //    suspend fun getRecipeDetails(recipeId: String): NetworkResult<Recipe> {
-//        return try {
-//            val result = ApiServiceProvider.client.fetchRecipeDetails(recipeId.toInt())
-//            val recipe = convertRecipeResponseToDomainModel(result)
-//            NetworkResult.ApiSuccess(recipe)
-//        } catch (e: Exception) {
-//            NetworkResult.ApiException(e)
-//        }
-//    }
     suspend fun getRecipeDetails(recipeId: String, isLocal: Boolean): NetworkResult<Recipe> {
         val recipe: Recipe
         return try {

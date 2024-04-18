@@ -3,7 +3,6 @@ package com.delliott.whatscooking.ui.home
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.delliott.whatscooking.MyApp
 import com.delliott.whatscooking.data.NetworkResult
 import com.delliott.whatscooking.data.RecipeRepository
 import com.delliott.whatscooking.domain.Recipe
@@ -15,8 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeScreenViewModel @Inject constructor(
-    private val recipeRepository: RecipeRepository,
-    myApp: MyApp,
+    private val recipeRepository: RecipeRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(RecipeUiState())
@@ -41,7 +39,6 @@ class HomeScreenViewModel @Inject constructor(
                 is NetworkResult.ApiException -> {
                     _uiState.value = RecipeUiState(errorMessage = result.e.message)
                     Log.d("exception", _uiState.value.errorMessage!!)
-
                 }
 
                 is NetworkResult.ApiSuccess -> {
