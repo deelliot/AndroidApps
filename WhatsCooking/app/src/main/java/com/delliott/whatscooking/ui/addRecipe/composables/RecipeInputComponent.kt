@@ -64,9 +64,6 @@ fun RecipeInputComponent(
             }
         }
         Column {
-//            for (item in itemList) {
-//                InputItem(text = item, onClick = onRecipeComponentRemoved)
-//            }
             itemList.forEachIndexed { index, item ->
                 InputItem(text = item, onClick = { onRecipeComponentRemoved(index) } )
 
@@ -94,8 +91,3 @@ fun RecipeInputComponentPreview() {
     RecipeInputComponent(label = "Ingredients", itemList = listOf("garlic", "onion","chicken"))
 }
 
-@Preview(showBackground = true)
-@Composable
-fun InputItemPreview() {
-    InputItem(text = "test")
-}
