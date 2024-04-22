@@ -29,8 +29,9 @@ fun SimpleTextField(
     onValueChange: (String) -> Unit,
     keyboardOptions: KeyboardOptions = KeyboardOptions(
         keyboardType = KeyboardType.Ascii,
-        imeAction = ImeAction.Done),
-    keyboardActions: KeyboardActions = KeyboardActions()
+        imeAction = ImeAction.Done
+    ),
+    keyboardActions: KeyboardActions = KeyboardActions(),
 ) {
     Column(
         modifier = modifier
@@ -43,21 +44,22 @@ fun SimpleTextField(
             keyboardOptions = keyboardOptions,
             keyboardActions = keyboardActions
         )
-        Box(
-            modifier = Modifier
-                .requiredHeight(16.dp)
-                .padding(start = 16.dp, end = 12.dp)
-        ) {
-            CompositionLocalProvider(
-                LocalTextStyle provides LocalTextStyle.current.copy(
-                    fontSize = 12.sp,
-                    color = if (errorMessage != null) MaterialTheme.colorScheme.error else LocalTextStyle.current.color
-                )
+        if (errorMessage != null) {
+            Text(
+                text = errorMessage
+            )
+            Box(
+                modifier = Modifier
+                    .requiredHeight(16.dp)
+                    .padding(start = 16.dp, end = 12.dp)
             ) {
-                if (errorMessage != null) {
-                    Text(
-                        text = errorMessage
+                CompositionLocalProvider(
+                    LocalTextStyle provides LocalTextStyle.current.copy(
+                        fontSize = 12.sp,
+                        color = MaterialTheme.colorScheme.error
                     )
+                ) {
+
                 }
             }
         }
@@ -83,11 +85,16 @@ fun RecipeInputField(
 @Preview(showBackground = true)
 @Composable
 fun SimpleTextFieldPreview() {
-    SimpleTextField(text = "test", label = "test label", onValueChange = {}, errorMessage = "I am an error")
+    SimpleTextField(
+        text = "test",
+        label = "test label",
+        onValueChange = {},
+        errorMessage = "I am an error"
+    )
 }
 
 @Preview(showBackground = true)
 @Composable
 fun RecipeInputFieldPreview() {
-    RecipeInputField(text = "Test", label = "test label" ) {}
+    RecipeInputField(text = "Test", label = "test label") {}
 }
