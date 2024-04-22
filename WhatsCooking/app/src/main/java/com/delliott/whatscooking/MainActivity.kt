@@ -203,8 +203,7 @@ fun WhatsCookingApp(
                 val newRecipe = uiState.newRecipe
                 if (uiState.errorMessage != null) {
                     // TODO:
-                }
-                else
+                } else
                     AddRecipeScreen(
                         newRecipe = newRecipe,
                         onNameChanged = { addRecipeViewModel.addName(it) },
@@ -212,7 +211,9 @@ fun WhatsCookingApp(
                         onServingSizeChanged = { addRecipeViewModel.addServingSize(it) },
                         onPrepTimeAdded = { addRecipeViewModel.addPrepTime(it) },
                         onCookTimeAdded = { addRecipeViewModel.addCookTime(it) },
-                        onIngredientAdded = { addRecipeViewModel.addIngredient(it) },
+                        onIngredientAdded = { quantity, unit, ingredient ->
+                            addRecipeViewModel.addIngredient(quantity, unit, ingredient)
+                        },
                         onIngredientRemoved = { addRecipeViewModel.removeIngredient(it) },
                         onInstructionAdded = { addRecipeViewModel.addInstruction(it) },
                         onInstructionRemoved = { addRecipeViewModel.removeInstruction(it) },
