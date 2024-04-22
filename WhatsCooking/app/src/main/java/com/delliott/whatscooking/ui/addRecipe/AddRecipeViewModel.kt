@@ -84,9 +84,9 @@ class AddRecipeViewModel @Inject constructor(
         }
     }
 
-    fun addIngredient(ingredient: String) {
+    fun addIngredient(quantity: String, unit: String, ingredient: String) {
         val currentList = _uiState.value.newRecipe.ingredients.value.toMutableList()
-        currentList.add(ingredient)
+        currentList.add("$quantity$unit $ingredient") // if unit == unit, dont add to string
         val newRecipe = uiState.value.newRecipe.copy(
             ingredients = InputResult(currentList)
         )

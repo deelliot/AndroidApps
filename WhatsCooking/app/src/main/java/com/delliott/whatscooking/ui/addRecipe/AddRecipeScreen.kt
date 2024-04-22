@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import com.delliott.whatscooking.R
 import com.delliott.whatscooking.domain.InputResult
 import com.delliott.whatscooking.domain.NewRecipeModel
+import com.delliott.whatscooking.ui.addRecipe.composables.IngredientsCard
 import com.delliott.whatscooking.ui.addRecipe.composables.RecipeInputComponent
 import com.delliott.whatscooking.ui.addRecipe.composables.SimpleTextField
 
@@ -44,7 +45,7 @@ fun AddRecipeScreen(
     onServingSizeChanged: (String) -> Unit = {},
     onPrepTimeAdded: (String) -> Unit = {},
     onCookTimeAdded: (String) -> Unit = {},
-    onIngredientAdded: (String) -> Unit = {},
+    onIngredientAdded: (String, String, String) -> Unit = {_,_,_ ->},
     onIngredientRemoved: (Int) -> Unit = {},
     onInstructionAdded: (String) -> Unit = {},
     onInstructionRemoved: (Int) -> Unit = {},
@@ -130,7 +131,7 @@ fun AddRecipeScreen(
                         )
                     }
                     Spacer(modifier = Modifier.height(8.dp))
-                    RecipeInputComponent(
+                    IngredientsCard(
                         label = "Ingredients",
                         itemList = newRecipe.ingredients.value,
                         onRecipeComponentAdded = onIngredientAdded,
