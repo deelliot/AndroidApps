@@ -1,15 +1,22 @@
 # What's Cooking
 
 ## Introduction
-Welcome to What's Cooking! This Android app is your recipe browsing companion, designed to showcase an array of recipes sourced from a dummy API. Developed as a learning project, What's Cooking focuses on utilizing Jetpack Compose, StateFlows, Room, and Hilt within the MVVM architecture.
+Welcome to What's Cooking! This Android app is designed to showcase an array of recipes sourced from a dummy API. 
+Developed as a learning project, What's Cooking focuses on utilizing Jetpack Compose, StateFlows, Room, and Hilt within the MVVM architecture.
 
 ## Overview
 
-What's Cooking offers users a chance to explore recipes, with filtering options based on meal type, sorting functionality by total time or top-rated recipes, searching through recipes with keywords, and now, the ability to add your own recipes. This app is still a work in progress and primarily created as a learning tool. Built using Kotlin, the app leverages Kotlin Coroutines, Retrofit, Moshi, Coil, Room, and Hilt to handle asynchronous tasks, retrieve data, parse JSON responses, load images efficiently, and manage local database storage and dependency injection.
+What's Cooking offers users a chance to explore recipes, with filtering options based on meal type, 
+sorting functionality by total time or top-rated recipes, searching through recipes with keywords, 
+and now, the ability to add your own recipes. 
+This app is still a work in progress and primarily created as a learning tool. 
+Built using Kotlin, the app leverages Kotlin Coroutines, Retrofit, Moshi, Coil, Room, and 
+Hilt to handle asynchronous tasks, retrieve data, parse JSON responses, load images efficiently, 
+and manage local database storage and dependency injection.
 
 ## Features
 
-- **Recipe Browsing**: Explore a diverse range of recipes, ready to tantalize your taste buds.
+- **Recipe Browsing**: Explore a diverse range of recipes.
 
 - **Filtering Options**: Filter recipes by meal type, allowing for easy navigation based on preferences.
 
@@ -25,9 +32,11 @@ What's Cooking offers users a chance to explore recipes, with filtering options 
 
 - **StateFlows**: StateFlows are employed to manage the state of the UI, ensuring smooth and responsive updates.
 
-- **Kotlin Coroutines**: Asynchronous tasks, such as network requests and database operations, are efficiently handled using Kotlin Coroutines, enhancing the app's performance.
+- **Kotlin Coroutines**: Asynchronous tasks, such as network requests and database operations, 
+- are efficiently handled using Kotlin Coroutines, enhancing the app's performance.
 
-- **Retrofit**: The app utilizes Retrofit to retrieve data from the dummy API, streamlining the process of making network requests and handling responses.
+- **Retrofit**: The app utilizes Retrofit to retrieve data from the dummy API, 
+- streamlining the process of making network requests and handling responses.
 
 - **Moshi**: Moshi is employed for parsing JSON responses from the dummy API, facilitating seamless extraction of relevant information.
 
@@ -66,7 +75,6 @@ The app relies on the following key dependencies, managed through Gradle:
 
 Refer to the `build.gradle` files for the latest versions of these dependencies.
 
-Bon appétit and happy cooking with What's Cooking! 🍳👩‍🍳👨‍🍳
 
 ![HomeScreen](https://github.com/deelliot/AndroidApps/assets/93197340/3d406b97-7911-46b4-b419-047cfef7f9ea)
 ![RecipeDetails](https://github.com/deelliot/AndroidApps/assets/93197340/95e494bf-20ea-4706-81fc-2fdab44b1bd0)
